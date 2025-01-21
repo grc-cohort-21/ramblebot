@@ -17,7 +17,7 @@ class LowercaseSentenceTokenizerTest {
 
     // Wave 2
     /*
-     * Write your test here!
+     * Write your test here! everything works for initial commit
      */
     
 
