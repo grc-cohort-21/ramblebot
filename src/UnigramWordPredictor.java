@@ -1,3 +1,17 @@
+/**
+ * @author Shawn Nguru 
+ * SDEV 301 RambleBot
+ * 1-21-25 
+ * 
+ * Problems/Bugs/Issues: 
+ * 
+ * 
+ * Notes/plans: 
+ * Iterate through the String (1)
+ * Split method by the spaces and symbols (2)
+ * Insert the strings into a list of strings (3)
+ */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +37,9 @@ public class UnigramWordPredictor implements WordPredictor {
   }
 
   /**
+   * 
+   * 
+   * 
    * Trains the predictor using the text provided by the Scanner.
    * The method tokenizes the text and builds a map where each word 
    * is associated with a list of words that immediately follow it 

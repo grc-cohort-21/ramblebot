@@ -2,6 +2,20 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * @author Shawn Nguru 
+ * SDEV 301 RambleBot
+ * 1-21-25 
+ * 
+ * Problems/Bugs/Issues: 
+ * 
+ * 
+ * Notes/plans: 
+ * Iterate through the String (1)
+ * split(String regex) a Split method by the spaces and symbols (2)
+ * Insert the strings into a list of strings (3)
+ */
+
+/**
  * A tokenizer that converts text input to lowercase and splits it 
  * into a list of tokens, where each token is either a word or a period.
  */
