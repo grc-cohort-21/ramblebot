@@ -19,6 +19,8 @@ class LowercaseSentenceTokenizerTest {
     /*
      * Write your test here!
      */
+
+     //Found this for help https://stackoverflow.com/questions/7899525/how-to-split-a-string-by-space
     @Test
     void testTokenizeWithNoCapitalizationOrPeriodWithLotsOfSpaces()
     {
