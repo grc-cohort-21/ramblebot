@@ -32,7 +32,11 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
     List<String> contentList = new ArrayList<>();
-    String[] result = scanner.nextLine().toLowerCase().split(" ");
+    /* 
+    in replaceAll the " +" takes all whitespaces where there is more than one whitespace and replaces it with a single whitespace. 
+    Taken from https://stackoverflow.com/questions/2932392/java-how-to-replace-2-or-more-spaces-with-single-space-in-string-and-delete-lead  
+    */
+    String[] result = scanner.nextLine().toLowerCase().replaceAll(" +", " ").split(" ");
     for (String str : result) {
       contentList.add(str);
     }
