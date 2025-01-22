@@ -38,7 +38,15 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     */
     String[] result = scanner.nextLine().toLowerCase().replaceAll(" +", " ").split(" ");
     for (String str : result) {
-      contentList.add(str);
+      if(str.charAt(str.length()-1) != '.'){
+        contentList.add(str);
+      }else{
+        String temp = str.replace('.', ' ');
+        contentList.add(temp.replace(" ", ""));
+        contentList.add(".");
+      }
+
+      
     }
     
     return contentList;
