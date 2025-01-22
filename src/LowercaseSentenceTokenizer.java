@@ -34,7 +34,9 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     
     String input = scanner.nextLine();
 
-    String[] convertToArray = input.split("\\s+"); //Found this for help https://stackoverflow.com/questions/7899525/how-to-split-a-string-by-space \s finds white space tabs, spaces, newlines + find multiple.
+    String Lowered = input.toLowerCase();
+
+    String[] convertToArray = Lowered.split("\\s+"); //Found this for help https://stackoverflow.com/questions/7899525/how-to-split-a-string-by-space \s finds white space tabs, spaces, newlines + find multiple.
     
     return Arrays.asList(convertToArray);
 
