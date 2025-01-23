@@ -38,11 +38,32 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     // TODO: Implement this function to convert the scanner's input to a list of
     // words and periods
     List<String> wordList = new ArrayList<>();
+    String word = "";
 
     while (scanner.hasNext()) {
-      wordList.add(scanner.next().toLowerCase());
+      // Save String in variable in lower case
+      word = scanner.next().toLowerCase();
+
+      // Check if string contains a period
+      if (word.contains(".")) {
+        // Check if period doesn't occur at the end of String
+        if (word.indexOf(".") != word.length() - 1) {
+          // If true, add the String to wordList
+          wordList.add(word);
+        } else {
+          // If false, remove the period from the String and add the word and the period
+          // to the wordList seperatly
+          word = word.substring(0, word.indexOf("."));
+          wordList.add(word);
+          wordList.add(".");
+        }
+      } else {
+        // If false, add String to wordList
+        wordList.add(word);
+      }
     }
 
+    // Return wordList
     return wordList;
   }
 }
