@@ -37,10 +37,29 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     
     // while we have a next line in the buffer
     while (scanner.hasNext()) {
+      
+      // storing the next item as a variable
+      // using toLowerCase
+      String word = scanner.next().toLowerCase();
 
-      //add the next item to the tokenList
-      tokenList.add(scanner.next().toLowerCase());
-    } 
+      // if the word ends with a period
+      if (word.endsWith(".")) {
+
+        // save the word separately using substring, with an adjustment of 1 for period
+        String noPeriod = word.substring(0, word.length() - 1);
+
+        // add the substring and a period to the tokenList
+        tokenList.add(noPeriod);
+        tokenList.add(".");
+      }
+      
+      // if it doesn't have a period we add it normally
+      else {
+        tokenList.add(word);
+      }
+    }
+    // test print
+    // System.out.println(tokenList);
 
     return tokenList;
   }
