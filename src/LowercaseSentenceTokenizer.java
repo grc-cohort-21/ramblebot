@@ -51,10 +51,9 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
         // add the substring and a period to the tokenList
         tokenList.add(noPeriod);
         tokenList.add(".");
-      }
-      
-      // if it doesn't have a period we add it normally
-      else {
+      } else {
+
+        // if it doesn't meet the above conditions we can just add it to the tokenList
         tokenList.add(word);
       }
     }
