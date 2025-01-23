@@ -127,7 +127,13 @@ public class RambleApp {
                         "If you have implemented it, there's a bug in your code where it's returning null for a prediction.");
                 break;
             }
-            System.out.print(" " + nextWord);
+
+            // If nextWord isn't a period, add a space before hand
+            if (!nextWord.equals(".")) {
+                System.out.print(" " + nextWord);
+            } else {
+                System.out.print(nextWord);
+            }
 
             // Update the context with the next word
             context.add(nextWord);
