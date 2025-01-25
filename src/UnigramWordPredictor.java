@@ -84,8 +84,8 @@ public class UnigramWordPredictor implements WordPredictor {
       
     } // end of loop
     // test prints
-    System.out.println(trainingWords);
-    System.out.println(neighborMap);
+    //System.out.println(trainingWords);
+    //System.out.println(neighborMap);
   }
 
 
