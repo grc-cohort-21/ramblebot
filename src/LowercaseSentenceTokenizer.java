@@ -35,11 +35,11 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     //We need to return a list so make an empty list
     List<String> tokenList = new ArrayList<>();
     
-    // while we have a next line in the buffer
+    // while we have a next item in the scanner
     while (scanner.hasNext()) {
       
       // storing the next item as a variable
-      // using toLowerCase
+      // using toLowerCase to get the lowercase string
       String word = scanner.next().toLowerCase();
 
       // if the word ends with a period
