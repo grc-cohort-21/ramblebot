@@ -54,6 +54,7 @@ public class UnigramWordPredictor implements WordPredictor {
     // TODO: Convert the trainingWords into neighborMap here
     
     // make sure neighbormap is properly initialized
+    // it took a little bit to realize you hadn't done this
     if (neighborMap == null) {
       neighborMap = new HashMap<>();
     }
@@ -66,17 +67,16 @@ public class UnigramWordPredictor implements WordPredictor {
       String nextWord = trainingWords.get(i+1);
 
       // check if the current word is new (not in the map as a key)
-      if (!neighborMap.containsKey(currentWord)) { 
-        // if it isn't we can build a new list and add it to the map
+      if (!neighborMap.containsKey(currentWord)) {  
         
-        // put the next word in a list
+        // if it isn't build a new list
         List<String> list = new ArrayList<>();
 
-        // add the key and value to neighborMap
+        // add it to the map with currentWord as the key
         neighborMap.put(currentWord, list);
-      } // once we have added the key and empty list for new words we can add to the Map
+      } // once we have added the key and empty list the value can be added
       
-      // saving the object reference for the list to manipulate the list
+      // saving the reference for the list so we can add to it
       List<String> list = neighborMap.get(currentWord);
 
       // add nextword to the list
@@ -140,8 +140,8 @@ public class UnigramWordPredictor implements WordPredictor {
     // we're only looking at the last word in the list named context?
     String keyWord = context.get(context.size()-1);
     
-    //should return null if no prediction (current word not in prediction list)
-    String nextWord = null;
+    //should return null if no prediction can be made (like if it's not in the neighborMap)
+    String predictedWord = null;
 
     // if the neighbor map contains the current "word in context"
     if (neighborMap.containsKey(keyWord)) {
@@ -152,10 +152,12 @@ public class UnigramWordPredictor implements WordPredictor {
       // how many items are in the list?
       int maxValue = possibleItemsList.size();
 
+
+
     }
     
     // return the nextWord we predicted
-    return nextWord;
+    return predictedWord;
   }
   
   /**
