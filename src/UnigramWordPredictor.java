@@ -58,21 +58,36 @@ public class UnigramWordPredictor implements WordPredictor {
       neighborMap = new HashMap<>();
     }
 
-    // Save the current training pair
-    String currentWord = trainingWords.get(0);
-    String nextWord = trainingWords.get(1);
+    // iterate over trainingWords
+    for (int i = 0; i < trainingWords.size() - 1; i++) {
+      
+      // Save the current training pair
+      String currentWord = trainingWords.get(i);
+      String nextWord = trainingWords.get(i+1);
 
-    // put the next word in a list
-    List<String> list = new ArrayList();
-    list.add(nextWord);
+      // check if the current word is new (not in the map as a key)
+      if (!neighborMap.containsKey(currentWord)) { 
+        // if it isn't we can build a new list and add it to the map
+        
+        // put the next word in a list
+        List<String> list = new ArrayList<>();
 
-    // add the key and value to neighborMap
-    neighborMap.put(currentWord, list);
+        // add the key and value to neighborMap
+        neighborMap.put(currentWord, list);
+      } // once we have added the key and empty list for new words we can add to the Map
+      
+      // saving the object reference for the list to manipulate the list
+      List<String> list = neighborMap.get(currentWord);
 
+      // add nextword to the list
+      list.add(nextWord);
+      
+    } // end of loop
     // test prints
     System.out.println(trainingWords);
     System.out.println(neighborMap);
   }
+
 
   /**
    * Predicts the next word based on the given context.
