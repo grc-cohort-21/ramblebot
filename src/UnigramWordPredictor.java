@@ -161,8 +161,8 @@ public class UnigramWordPredictor implements WordPredictor {
       int randomInt = (int)(Math.random() * maxValue);
 
       // test prints to see if the casting and expected random highest number is working
-      System.out.println("Max Value " + maxValue);
-      System.out.println("Random Int " + randomInt);
+      //System.out.println("Max Value " + maxValue);
+      //System.out.println("Random Int " + randomInt);
 
       // if we got a good random number, use that to retrieve the predicted word
       predictedWord = possibleItemsList.get(randomInt);
