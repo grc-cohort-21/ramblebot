@@ -157,14 +157,18 @@ public class UnigramWordPredictor implements WordPredictor {
       // generates a random double between 0.0 and 1.0. 
       // Multiplying this by the maxValue and casting to an int to remove the decimal
       // adding 1 so it is 1 to maxValue instead of 0 to maxValue-1
-      int randomInt = (int)(Math.random() * maxValue) + 1;
+      // Later edit: realized this should be 0 to MaxValue-1 since we're retreving based on array anyway and took off the + 1
+      int randomInt = (int)(Math.random() * maxValue);
 
       // test prints to see if the casting and expected random highest number is working
       System.out.println("Max Value " + maxValue);
       System.out.println("Random Int " + randomInt);
+
+      // if we got a good random number, use that to retrieve the predicted word
+      predictedWord = possibleItemsList.get(randomInt);
     }
-    
-    // return the nextWord we predicted
+
+    // return the nextWord we predicted (or null)
     return predictedWord;
   }
   
