@@ -152,8 +152,16 @@ public class UnigramWordPredictor implements WordPredictor {
       // how many items are in the list?
       int maxValue = possibleItemsList.size();
 
+      //using Math.random() as it made more sense to me than the Random util
+      //referenced: https://www.w3schools.com/java/java_howto_random_number.asp
+      // generates a random double between 0.0 and 1.0. 
+      // Multiplying this by the maxValue and casting to an int to remove the decimal
+      // adding 1 so it is 1 to maxValue instead of 0 to maxValue-1
+      int randomInt = (int)(Math.random() * maxValue) + 1;
 
-
+      // test prints to see if the casting and expected random highest number is working
+      System.out.println("Max Value " + maxValue);
+      System.out.println("Random Int " + randomInt);
     }
     
     // return the nextWord we predicted
