@@ -1,0 +1,5 @@
+Blaze@Thoth MINGW64 ~/SDEV301/projects/ramblebot (main)
+$  cd c:\\Users\\Blaze\\SDEV301\\projects\\ramblebot ; /usr/bin/env C:\\Program\ Files\\Java\\jdk-23\\bin\\java.exe @C:\\Users\\Blaze\\AppData\\Local\\Temp\\cp_18ci5o9mcfusdn4uv3b7jw736.argfile RambleApp 
+Enter the filename: poeTraining.txt
+Enter the number of words to generate: 100
+by a shore; seas that drip all over; mountains toppling evermore into seas that walks in agony, to the traveller meets, aghast, sheeted memories of the fring'd lid; and dead,? their sad and sigh as they pass the sad and pools where dwell the dismal tarns and dead,? their lone waters, lone and titan woods, with the earth?and heaven . bottomless vales and caves, and pools where dwell the mountains?near the newt encamp,? by the wanderer by? white-robed forms of the past? shrouded forms that thus the snows of the earth?and heaven . for the heart whose woes are legion

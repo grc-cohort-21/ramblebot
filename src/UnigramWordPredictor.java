@@ -52,7 +52,42 @@ public class UnigramWordPredictor implements WordPredictor {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
     // TODO: Convert the trainingWords into neighborMap here
+    
+    // make sure neighbormap is properly initialized
+    // it took a little bit to realize you hadn't done this
+    if (neighborMap == null) {
+      neighborMap = new HashMap<>();
+    }
+
+    // iterate over trainingWords
+    for (int i = 0; i < trainingWords.size() - 1; i++) {
+      
+      // Save the current training pair
+      String currentWord = trainingWords.get(i);
+      String nextWord = trainingWords.get(i+1);
+
+      // check if the current word is new (not in the map as a key)
+      if (!neighborMap.containsKey(currentWord)) {  
+        
+        // if it isn't build a new list
+        List<String> list = new ArrayList<>();
+
+        // add it to the map with currentWord as the key
+        neighborMap.put(currentWord, list);
+      } // once we have added the key and empty list the value can be added
+      
+      // saving the reference for the list so we can add to it
+      List<String> list = neighborMap.get(currentWord);
+
+      // add nextword to the list
+      list.add(nextWord);
+      
+    } // end of loop
+    // test prints
+    //System.out.println(trainingWords);
+    //System.out.println(neighborMap);
   }
+
 
   /**
    * Predicts the next word based on the given context.
@@ -101,7 +136,40 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
-    return null;
+    
+    // we're only looking at the last word in the list named context?
+    String keyWord = context.get(context.size()-1);
+    
+    //should return null if no prediction can be made (like if it's not in the neighborMap)
+    String predictedWord = null;
+
+    // if the neighbor map contains the current "word in context"
+    if (neighborMap.containsKey(keyWord)) {
+
+      // retrieving our list of strings from the neighborMap which map to "word"
+      List<String> possibleItemsList = neighborMap.get(keyWord);
+
+      // how many items are in the list?
+      int maxValue = possibleItemsList.size();
+
+      //using Math.random() as it made more sense to me than the Random util
+      //referenced: https://www.w3schools.com/java/java_howto_random_number.asp
+      // generates a random double between 0.0 and 1.0. 
+      // Multiplying this by the maxValue and casting to an int to remove the decimal
+      // adding 1 so it is 1 to maxValue instead of 0 to maxValue-1
+      // Later edit: realized this should be 0 to MaxValue-1 since list indexes start at 0 anyway and took off the + 1
+      int randomInt = (int)(Math.random() * maxValue);
+
+      // test prints to see if the casting and expected random highest number is working
+      //System.out.println("Max Value " + maxValue);
+      //System.out.println("Random Int " + randomInt);
+
+      // if we got a good random number, use that to retrieve the predicted word
+      predictedWord = possibleItemsList.get(randomInt);
+    }
+
+    // return the nextWord we predicted (or null)
+    return predictedWord;
   }
   
   /**
