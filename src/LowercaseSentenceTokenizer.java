@@ -54,6 +54,13 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
         tokenList.add(token);
         tokenList.add("...");
       }
+      else if(token.endsWith(".\""))
+      {
+        token = token.substring(0,token.length()-2);
+        tokenList.add(token);
+        tokenList.add(".");
+        tokenList.add("\"");
+      }
       
       else if(last.equals(".") || last.equals("!")|| last.equals("?") || last.equals(",") || last.equals(";") || last.equals(":") || last.equals("\""))
       {
