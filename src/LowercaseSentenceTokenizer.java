@@ -56,6 +56,7 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
 
       for(int i = 0; i < processedLines.size();i++){
         lineHolder = processedLines.get(i);
+        lineHolder = lineHolder.toLowerCase();
         String[] tempLine = removeAllSpaces(lineHolder);
 
         holder.addAll(Arrays.asList(tempLine));
