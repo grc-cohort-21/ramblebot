@@ -34,8 +34,9 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
     List<String> intialStep = breakLineDetect(scanner);
     // System.out.println(intialStep.size());
+    // System.out.println(intialStep);
 
-    return null;
+    return intialStep;
   }
 
   public List<String> breakLineDetect(Scanner scanner){
@@ -55,12 +56,27 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
 
       for(int i = 0; i < processedLines.size();i++){
         lineHolder = processedLines.get(i);
-        String[] tempLine = lineHolder.split(" ");
+        String[] tempLine = removeAllSpaces(lineHolder);
 
         holder.addAll(Arrays.asList(tempLine));
       }
 
       return holder;
+  }
+
+  public String[] removeAllSpaces(String lineHolder){
+    String[] tempHolder = lineHolder.split(" ");
+    List<String> newList = new ArrayList<>();
+
+    for(int i = 0; i < tempHolder.length; i++){
+      if(!tempHolder[i].equals("")){
+        newList.add(tempHolder[i]);
+      }
+    }
+
+    tempHolder = newList.toArray(new String[0]);
+
+    return tempHolder;
   }
 }
 
