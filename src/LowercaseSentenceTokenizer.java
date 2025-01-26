@@ -37,13 +37,22 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     while(scanner.hasNext())
     {
       String token = scanner.next().toLowerCase();
+      char lastChar = token.charAt(token.length()-1);
+      char firstChar = token.charAt(0);
+      String last = String.valueOf(lastChar);
+      String first = String.valueOf(firstChar);
       
-      if(token.endsWith("."))
+      if(first.equals("\""))
       {
-        token = token.substring(0,token.length()-1);
-        tokenList.add(token);
-        tokenList.add(".");
-      }
+        tokenList.add(first);
+        token = token.substring(1,token.length());
+      } 
+      
+      if(last.equals(".") || last.equals("!")|| last.equals("?") || last.equals(",") || last.equals(";") || last.equals(":") || last.equals("\""))
+      {
+        tokenList.add(token.substring(0,token.length()-1));
+        tokenList.add(last);
+      }   
      
       else
       {
