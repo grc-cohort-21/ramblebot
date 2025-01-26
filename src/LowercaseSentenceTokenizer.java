@@ -71,13 +71,27 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
 
     for(int i = 0; i < tempHolder.length; i++){
       if(!tempHolder[i].equals("")){
-        newList.add(tempHolder[i]);
+        if(seperatePeriods(tempHolder[i])){
+          String grabPeriod = Character.toString(tempHolder[i].charAt(tempHolder[i].length()-1));
+          tempHolder[i] = tempHolder[i].substring(0, tempHolder[i].length()-1);
+          
+          newList.add(tempHolder[i]);
+          newList.add(grabPeriod);
+        }else{
+          newList.add(tempHolder[i]);
+        }
       }
     }
 
     tempHolder = newList.toArray(new String[0]);
 
     return tempHolder;
+  }
+
+  public boolean seperatePeriods(String wordsLastCheck){
+    char checkLastChara = wordsLastCheck.charAt(wordsLastCheck.length()-1);
+    boolean checkCondit = checkLastChara == '.';
+    return checkCondit;
   }
 }
 
