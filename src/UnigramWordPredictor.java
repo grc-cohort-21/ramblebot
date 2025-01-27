@@ -40,6 +40,21 @@ public class UnigramWordPredictor implements WordPredictor {
    * If the input text is: "The cat sat. The cat slept. The dog barked."
    * After tokenizing, the tokens would be: ["the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", "."]
    * 
+   * key: "the"  value: ["cat","cat","dog"]
+   * key: "cat"  value: ["sat", "slept"]
+   * 
+   * 
+   * 
+   * for ()
+   * {
+   * 
+   *   for()
+   *   {
+   *      
+   *   }
+   *  
+   * }
+   * 
    * 
    * value = the 
    * 
@@ -69,26 +84,22 @@ public class UnigramWordPredictor implements WordPredictor {
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
     List<String> valueWords = new ArrayList<>();
-    Map<String, List<String>> neighborMap = new HashMap<>();
+    neighborMap = new HashMap<>();
 
-    String valueText = "";
-    for(int i = 0; i <= trainingWords.size(); i++)
+    String keyText = "";
+    for(int i = 0; i < trainingWords.size(); i++)
     {
-      valueText = trainingWords.get(i);
-      for(int  j= 0; j <= trainingWords.size()-1; j++)
+      keyText = trainingWords.get(i);
+      for(int  j= 0; j < trainingWords.size()-1; j++)
       {
-        if(valueText == trainingWords.get(i))
+        if(keyText.equals(trainingWords.get(j)))
         {
-          valueWords.add(trainingWords.get(i+1));
+          valueWords.add(trainingWords.get(j+1));
         }
       }
-    }
-
-    for(int i = 0; i <= trainingWords.size(); i++)
-    {
       neighborMap.put(trainingWords.get(i), valueWords);
+      valueWords = new ArrayList<String>();
     }
-    // TODO: Convert the trainingWords into neighborMap here
   }
 
   /**
