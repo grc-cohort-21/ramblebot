@@ -41,7 +41,6 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
       if(token.lastIndexOf(".") == token.length()-1){
         String shortStr = "";
         char[] cArr = token.toCharArray();
-
         for(int i=0; i<token.length()-1; i++){
           shortStr += cArr[i];
         }
