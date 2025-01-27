@@ -39,7 +39,7 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
         wordBreakdown[i] = word.charAt(i);
       }
       if (wordBreakdown[word.length()-1]=='.') {
-        wordList.add(word.toLowerCase());
+        wordList.add(word.toLowerCase().replace(".", ""));
         wordList.add(".");
       }
       else {
