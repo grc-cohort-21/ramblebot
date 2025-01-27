@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * A class for predicting the next word in a sequence using a unigram model.
@@ -72,12 +73,7 @@ public class UnigramWordPredictor implements WordPredictor {
         //add in the token, and list of values stored
         neighborMap.put(mKey, tempVals);
       }
-    
     }
-    
-
-
-
   }
 
   /**
@@ -125,9 +121,18 @@ public class UnigramWordPredictor implements WordPredictor {
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
+    List<String> vals = new ArrayList<>();
+    String lastWord = context.get(context.size()-1);
+    Random picker = new Random();
+    String choice ="";
     // TODO: Return a predicted word given the words preceding it
+    if(neighborMap.containsKey(lastWord)){
+      vals = neighborMap.get(lastWord);
+      choice = vals.get(picker.nextInt(vals.size()));
+    }
+
     // Hint: only the last word in context should be looked at
-    return null;
+    return choice;
   }
   
   /**
