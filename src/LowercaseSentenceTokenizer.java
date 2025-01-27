@@ -50,8 +50,6 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
         
       }else{tokens.add(token);}
       
-
-      // tokens.add(scanner.next().toLowerCase());
     }
     return tokens;
   }

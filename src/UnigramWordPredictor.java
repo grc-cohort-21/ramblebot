@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -50,8 +51,24 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
+    List<String> temp = new LinkedList<>();
 
     // TODO: Convert the trainingWords into neighborMap here
+    neighborMap = new HashMap<>();
+    for(int i=0; i<trainingWords.size(); i++){
+      String token = trainingWords.get(i);
+      for(int j=0; i<trainingWords.size(); i++){
+        if(token == trainingWords.get(j)){
+          temp.add(trainingWords.get(j+1));
+        }
+      }
+
+      neighborMap.put(trainingWords.get(i),temp);
+    }
+    
+
+
+
   }
 
   /**
