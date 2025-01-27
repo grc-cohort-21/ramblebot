@@ -45,17 +45,20 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     List<String> textList =new ArrayList<String>();
-    String text = scanner.nextLine();
 
-    String[] arr = text.split(" ");
+    String text = scanner.nextLine();    //put the input text in a string array
 
-    for(int i = 0; i<= arr.length; i++)
+    String[] arr = text.split(" ");   //split the array based on spaces in the text
+
+    for(int i = 0; i<= arr.length-1; i++)   //add the content of the array into the list of strings
     {
       textList.add(arr[i]);
     }
 
-
-    return null;
+    List<String> n2 = new ArrayList<>();
+    n2.add(" ");
+    textList.removeAll(n2);    
+    return textList;
   }
 }
 
