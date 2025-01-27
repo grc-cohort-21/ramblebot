@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -49,9 +50,35 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
-    List<String> trainingWords = tokenizer.tokenize(scanner);
+    
 
-    // TODO: Convert the trainingWords into neighborMap here
+    List<String> trainingWords = tokenizer.tokenize(scanner);
+    this.neighborMap = new HashMap<>();
+    // Itterate over the list except for the last element because nothing comes after it. 
+    // If the neighborMap.containsKey(trainingWords(i)) - Where i is the current index (or word) of the trainingWords itteration 
+    //      - get the corresponding list and add trainingWords(i+1) becasue you are adding the word that follows
+    // Else create a new arrayList, list.add(i+1) - for the word following i- then neighborMap.put(i, newlist) 
+    //      - the current word as the key, the new list as the value
+    for (int i = 0; i < trainingWords.size() - 1; i++) {
+      if (neighborMap.containsKey(trainingWords.get(i))) {
+        neighborMap.get(trainingWords.get(i)).add(trainingWords.get(i+1));
+      }
+      else {
+        List<String> newList = new ArrayList<>();
+        newList.add(trainingWords.get(i+1));
+        neighborMap.put(trainingWords.get(i), newList);
+      }
+    }
+    // **NOTE** In the future consider reversing the if else above with if (!neighborMap.containsKey(trainingWords.get(i))) for readability
+    // It makes more sense to add an element if key not found first, then update if found
+
+    // Account for the last word not being anywhere else in the training, to not crash the program
+    // Loop the training words so that the first word follows the last
+    if (!neighborMap.containsKey(trainingWords.get(trainingWords.size() - 1))) {
+      List<String> newList = new ArrayList<>();
+      newList.add(trainingWords.get(0));
+      neighborMap.put(trainingWords.get(trainingWords.size() - 1), newList);
+    }
   }
 
   /**
@@ -99,9 +126,18 @@ public class UnigramWordPredictor implements WordPredictor {
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+    // Examine last word in context
+    // Get possible word list from neighbor map
+    // Generate a random number between 0 and the size of the posible word list
+    // return a word from possible word list at random number index
+
+    String currentWord = context.get(context.size() - 1);
+    List<String> possibleNextWords = new ArrayList<>(neighborMap.get(currentWord));
+
+    Random random = new Random();
+    int randomIndex = random.nextInt(possibleNextWords.size());
+
+    return possibleNextWords.get(randomIndex);
   }
   
   /**
