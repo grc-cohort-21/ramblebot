@@ -37,7 +37,8 @@ public class LowercaseSentenceTokenizer implements Tokenizer
 
     while(scanner.hasNext())  //looking at the first word and putting it into the list
     {  
-      list.add(scanner.next()); //looks at the beginning of the word to see if it exists then adds with .add
+      list.add(scanner.next().toLowerCase()); //looks at the beginning of the word to see if it exists then adds with .add. 
+      //.toLowerCase sets the string to all lower case letters
      
     }
 
