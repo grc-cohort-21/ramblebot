@@ -35,11 +35,21 @@ public class LowercaseSentenceTokenizer implements Tokenizer
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
     List<String> list = new ArrayList<>(); //creating
 
+
     while(scanner.hasNext())  //looking at the first word and putting it into the list
     {  
-      list.add(scanner.next().toLowerCase()); //looks at the beginning of the word to see if it exists then adds with .add. 
+      String word = scanner.next().toLowerCase(); //looks at the beginning of the word to see if it exists then adds with .add. 
       //.toLowerCase sets the string to all lower case letters
-     
+      
+     if (word.endsWith(".")) //we want to check the period. at the end of the sentence
+     {
+      list.add(word.substring(0, word.length() -1)); // adding the word w/o period. //set the first one the way you want inclusive. word.length returns the entire word. word.length() - 1 will be exclusive
+        list.add(".");//adding the period 
+     }
+     else
+     {
+      list.add(word); //now just add the word
+     }
     }
 
     return list;
