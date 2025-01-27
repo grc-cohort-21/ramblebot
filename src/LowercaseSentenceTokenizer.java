@@ -38,7 +38,7 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
       token = token.toLowerCase();
       if (token.charAt(token.length() - 1) == '.') {
         String period = token.charAt(token.length() - 1) + "";
-        tokenizedList.add(token);
+        tokenizedList.add(token.substring(0, token.length() - 1));
         tokenizedList.add(period);
       }
       else {
