@@ -52,13 +52,18 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
 
     for(int i = 0; i<= arr.length-1; i++)   //add the content of the array into the list of strings
     {
-      textList.add(arr[i]);
+      if(arr[i] == " " || arr[i] == "  " || arr[i] == "")    //filtering out the extra spaces inside the arrayList
+      {
+
+      }
+      else
+      {
+        textList.add(arr[i].toLowerCase());
+      }
     }
 
-    List<String> n2 = new ArrayList<>();
-    n2.add(" ");
-    textList.removeAll(n2);    
-    return textList;
+
+return textList;
   }
 }
 
