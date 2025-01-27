@@ -50,6 +50,8 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
+    
+
     List<String> trainingWords = tokenizer.tokenize(scanner);
     this.neighborMap = new HashMap<>();
     // Itterate over the list except for the last element because nothing comes after it. 
@@ -67,8 +69,16 @@ public class UnigramWordPredictor implements WordPredictor {
         neighborMap.put(trainingWords.get(i), newList);
       }
     }
-    // **NOTE** In the future consider reversing the if else with if (!neighborMap.containsKey(trainingWords.get(i))) for readability
-    // It makes more sense to add if not found first, then update if found
+    // **NOTE** In the future consider reversing the if else above with if (!neighborMap.containsKey(trainingWords.get(i))) for readability
+    // It makes more sense to add an element if key not found first, then update if found
+
+    // Account for the last word not being anywhere else in the training, to not crash the program
+    // Loop the training words so that the first word follows the last
+    if (!neighborMap.containsKey(trainingWords.get(trainingWords.size() - 1))) {
+      List<String> newList = new ArrayList<>();
+      newList.add(trainingWords.get(0));
+      neighborMap.put(trainingWords.get(trainingWords.size() - 1), newList);
+    }
   }
 
   /**
