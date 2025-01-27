@@ -50,13 +50,24 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
-
+    this.neighborMap = new HashMap<>();
     // Itterate over the list except for the last element because nothing comes after it. 
-    // If the neighborMap.containsKey(i) - Where i is the current index (or word) of the trainingWords itteration 
+    // If the neighborMap.containsKey(trainingWords(i)) - Where i is the current index (or word) of the trainingWords itteration 
     //      - get the corresponding list and add trainingWords(i+1) becasue you are adding the word that follows
     // Else create a new arrayList, list.add(i+1) - for the word following i- then neighborMap.put(i, newlist) 
     //      - the current word as the key, the new list as the value
-    
+    for (int i = 0; i < trainingWords.size() - 1; i++) {
+      if (neighborMap.containsKey(trainingWords.get(i))) {
+        neighborMap.get(trainingWords.get(i)).add(trainingWords.get(i+1));
+      }
+      else {
+        List<String> newList = new ArrayList<>();
+        newList.add(trainingWords.get(i+1));
+        neighborMap.put(trainingWords.get(i), newList);
+      }
+    }
+    // **NOTE** In the future consider reversing the if else with if (!neighborMap.containsKey(trainingWords.get(i))) for readability
+    // It makes more sense to add if not found first, then update if found
   }
 
   /**
