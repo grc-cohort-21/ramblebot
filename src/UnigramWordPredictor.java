@@ -123,6 +123,7 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     List<String> vals = new ArrayList<>();
     String lastWord = context.get(context.size()-1);
+    // random number research: https://www.tutorialspoint.com/java/util/random_nextint_inc_exc.htm
     Random picker = new Random();
     String choice ="";
     // TODO: Return a predicted word given the words preceding it
