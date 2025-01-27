@@ -3,13 +3,6 @@
  * SDEV 301 RambleBot
  * 1-21-25 
  * 
- * Problems/Bugs/Issues: 
- * 
- * 
- * Notes/plans: 
- * Iterate through the String (1)
- * Split method by the spaces and symbols (2)
- * Insert the strings into a list of strings (3)
  */
 
 import java.util.ArrayList;
@@ -37,9 +30,6 @@ public class UnigramWordPredictor implements WordPredictor {
   }
 
   /**
-   * 
-   * 
-   * 
    * Trains the predictor using the text provided by the Scanner.
    * The method tokenizes the text and builds a map where each word 
    * is associated with a list of words that immediately follow it 
@@ -49,6 +39,9 @@ public class UnigramWordPredictor implements WordPredictor {
    * For example:
    * If the input text is: "The cat sat. The cat slept. The dog barked."
    * After tokenizing, the tokens would be: ["the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", "."]
+   * 
+   * 
+   * value = the 
    * 
    * The resulting map (neighborMap) would be:
    * {
@@ -61,13 +54,40 @@ public class UnigramWordPredictor implements WordPredictor {
    *   "barked" -> ["."]
    * }
    * 
+   * Check if training words contains an element.
+   * (if it does) insert that element into valueWords list 
+   * (if it does) delete that word in training words to find the next
+   * 
+   * clear valued words list everytime the values are inserted at the end of the loop
+   * 
+   * 
+   * 
    * The order of the map and the order of each list is not important.
    * 
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
+    List<String> valueWords = new ArrayList<>();
+    Map<String, List<String>> neighborMap = new HashMap<>();
 
+    String valueText = "";
+    for(int i = 0; i <= trainingWords.size(); i++)
+    {
+      valueText = trainingWords.get(i);
+      for(int  j= 0; j <= trainingWords.size()-1; j++)
+      {
+        if(valueText == trainingWords.get(i))
+        {
+          valueWords.add(trainingWords.get(i+1));
+        }
+      }
+    }
+
+    for(int i = 0; i <= trainingWords.size(); i++)
+    {
+      neighborMap.put(trainingWords.get(i), valueWords);
+    }
     // TODO: Convert the trainingWords into neighborMap here
   }
 
