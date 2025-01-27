@@ -20,7 +20,7 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public UnigramWordPredictor(Tokenizer tokenizer) {
     this.tokenizer = tokenizer;
-    this.neighborMap = new HashMap<>();
+    this.neighborMap = new HashMap<>(); // INIT NEIGHBORMAP!!
   }
 
   /**
@@ -50,18 +50,16 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
-    List<String> trainingWords = tokenizer.tokenize(scanner); //init list for tokenized script given
-    //Map<String, ArrayList<String>> neighborMap = new HashMap<String, ArrayList<String>>(); //init map for storing strings seperated for the ramblebot to ramble
+    List<String> trainingWords = tokenizer.tokenize(scanner); //
     
-
-    for(int i = 0; i < trainingWords.size() - 1; i++) // loop through the tokenized list, from greatest to smallest
+    for(int i = 0; i < trainingWords.size() - 1; i++) // 
     {
-      String currentWord = trainingWords.get(i); // retrieve first // key
-      String nextWord = trainingWords.get(i + 1); // retrieve one ahead of first // values
+      String currentWord = trainingWords.get(i); // 
+      String nextWord = trainingWords.get(i + 1); // 
 
-      List<String> listOfStrings = new ArrayList<String>(); //init new list for values and store the string retrieved first as the key
-      listOfStrings.add(nextWord); //populate the list containing the values
-      neighborMap.put(currentWord, listOfStrings); // store all within hashmap
+      List<String> listOfStrings = neighborMap.getOrDefault(currentWord, new ArrayList<>()); //
+      listOfStrings.add(nextWord);
+      neighborMap.put(currentWord, listOfStrings); // 
 
     }
 
