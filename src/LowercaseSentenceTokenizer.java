@@ -34,7 +34,7 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     List<String> tokens = new ArrayList<>();
     
     //Read input line 
-    String line = scanner.nextLine();
+    String line = scanner.nextLine().toLowerCase();
     
     //split line by space, periods 
     String[]words = line.split("\\s+"); //https://stackoverflow.com/questions/25729181/how-to-split-by-newline-and-space
