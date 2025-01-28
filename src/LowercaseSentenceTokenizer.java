@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,9 +29,110 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    * @param scanner the Scanner to read the input text from
    * @return a list of tokens, where each token is a word or a period
    */
-  public List<String> tokenize(Scanner scanner) {
+  public List<String> tokenize(Scanner scanner) 
+  {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
+    List<String> tokenList = new ArrayList<>();
+  
+    while(scanner.hasNext())
+    {
+      String token = scanner.next().toLowerCase();
+      
+      if (checkIfAllPunctuation(token)) 
+      {
+        for (char character : token.toCharArray()) 
+        {
+          String punctuation = String.valueOf(character);
+          tokenList.add(punctuation);
+        }
+        continue;
+      }
+
+      if(token.startsWith("\""))
+      {
+        tokenList.add("\"");
+        token = token.substring(1,token.length());
+      }
+
+      if(token.endsWith("..."))
+      {
+        token = token.substring(0,token.length()-3);
+        tokenList.add(token);
+        tokenList.add("...");
+      }
+      
+      else if (token.length() > 1 && token.endsWith("\"")) 
+      {
+        char beforeQuote = token.charAt(token.length() - 2);
+        if (checkIfPunctuation(beforeQuote)) 
+        {
+          token = token.substring(0, token.length() - 2);
+          tokenList.add(token);
+          String punctuation = String.valueOf(beforeQuote);
+          tokenList.add(punctuation);
+          tokenList.add("\"");
+        } 
+        
+        else 
+        {
+          token = token.substring(0, token.length() - 1);
+          tokenList.add(token);
+          tokenList.add("\"");
+        }
+      }
+
+      else if(token.endsWith("\""))
+      {
+        token = token.substring(0,token.length()-1);
+        tokenList.add(token);
+        tokenList.add("\"");
+      }
+      
+      else if(checkIfPunctuation(token.charAt(token.length() - 1)))
+      {
+        char lastChar = token.charAt(token.length() - 1);
+        token = token.substring(0, token.length() - 1);
+        tokenList.add(token);
+        String last = String.valueOf(lastChar);
+        tokenList.add(last);
+      }
+
+      else if (checkIfAllPunctuation(token)) 
+      {
+        for (char character : token.toCharArray()) 
+        {
+          String punctuation = String.valueOf(character);
+          tokenList.add(punctuation);
+        }
+      }
+     
+      else
+      {
+        tokenList.add(token);
+      }
+    }
+    return tokenList;
+  }
+
+  public boolean checkIfPunctuation(char character)
+  {
+    if(character == '.' || character == '!' || character == '?' || character == ',' || character == ';' || character == ':' || character == '\"')
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  public boolean checkIfAllPunctuation(String token)
+  {
+    for(char character : token.toCharArray())
+    if(!checkIfPunctuation(character))
+    {
+      return false;
+    }
+
+    return true;
   }
 }
 
