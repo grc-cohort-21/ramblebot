@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
-class UnigramWordPredictorTest {
+class UnigramWordPredictorTest 
+{
 
     // Wave 4
     /**

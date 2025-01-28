@@ -9,9 +9,10 @@ import java.util.Scanner;
  * The model is trained on input text and maps each word to a list of 
  * words that directly follow it in the text.
  */
-public class UnigramWordPredictor implements WordPredictor {
-  private Map<String, List<String>> neighborMap;
-  private Tokenizer tokenizer;
+public class UnigramWordPredictor implements WordPredictor 
+{
+  private Map<String, List<String>> neighborMap; //Map instance variable named neighborhoodMap
+  private Tokenizer tokenizer; //instance variable named tokenizer
 
   /**
    * Constructs a UnigramWordPredictor with the specified tokenizer.
@@ -48,10 +49,34 @@ public class UnigramWordPredictor implements WordPredictor {
    * 
    * @param scanner the Scanner to read the training text from
    */
-  public void train(Scanner scanner) {
-    List<String> trainingWords = tokenizer.tokenize(scanner);
+  public void train(Scanner scanner) //method called train passing in Scanner named scanner
+  {
+      List<String> trainingWords = tokenizer.tokenize(scanner); //traingWords will contain list of strings from a file, since we cant pass a file. Training words object is now the cup that holds the string of words here..
+      neighborMap = new HashMap<>(); //initialize neighborMap
+      //[1][2][3][4][5] number qty size
+      //[0][1][2][3][4] number index
 
-    // TODO: Convert the trainingWords into neighborMap here
+      for (int i = 0; i <= trainingWords.size() -1; i++) //iterate through the list             
+      {                                                                                     
+            String keyWord = trainingWords.get(i); //creating keyword
+            String keyWordNext = trainingWords.get(i + 1); //creating next keyword 
+
+            List<String> keyValue = new ArrayList<>(); //creating a list called keyValue
+
+             keyValue.add(keyWordNext); //actually doing something after the iterating. with .add by adding the string in the position of keyWordNext. 
+
+
+
+            neighborMap.put(keyWord, keyValue); //the key in the map will be the strings from training words named keyWord. The value in this position is an arrayList named keyValue. 
+
+      }   
+
+      //how do i extract the words from trainingWords and put the unique words into neighborMap
+   
+
+// TODO: Convert the trainingWords into neighborMap here
+
+    
   }
 
   /**
