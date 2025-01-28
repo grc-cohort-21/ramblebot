@@ -40,7 +40,7 @@ This is a large, difficult project. Start early, and get help when you need it.
 1. Open `RambleApp.java`. Click anywhere in the text of the file
 1. Scroll to the bottom to find the `main` method. There should be a small grey "run" button above it. Click "Run".
 ![Run Button in VS Code](images/run_button.png)
-Sometimes this button takes a little bit to show up when you first open VS Code. If you're not seeing it, make sure you have the Java extension pack installed and it is active.
+Sometimes this button takes a little bit to show up when you first open VS Code. If you're not seeing it, this is my small readme change, make sure you have the Java extension pack installed and it is active.
 1. It should ask you for a filename. Give it the following filename:
     ```
     wikipediaData.txt
