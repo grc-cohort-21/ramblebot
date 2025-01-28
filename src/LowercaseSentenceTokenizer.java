@@ -36,9 +36,8 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     //Read input line 
     String line = scanner.nextLine();
     
-    //split line by space, periods and other
-    String[]words = line.split(",\\.\\s"); //https://www.w3schools.com/java/ref_string_split.asp
-
+    //split line by space, periods 
+    String[]words = line.split("\\s+"); //https://stackoverflow.com/questions/25729181/how-to-split-by-newline-and-space
     //go through words and add them
     for(String word :words){
         tokens.add(word);
