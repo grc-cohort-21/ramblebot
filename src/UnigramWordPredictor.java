@@ -114,9 +114,11 @@ public class UnigramWordPredictor implements WordPredictor {
     // Hint: only the last word in context should be looked at
     //Random class information gathered at https://www.geeksforgeeks.org/generating-random-numbers-in-java/
     Random rand = new Random();
-    int randomStringIndex = rand.nextInt(context.size());
     String lastWord = context.get(context.size()-1);
+    int randomStringIndex = rand.nextInt(neighborMap.get(lastWord).size());
+    
     return neighborMap.get(lastWord).get(randomStringIndex);
+
   }
   
   /**
