@@ -43,7 +43,7 @@ This is a large, difficult project. Start early, and get help when you need it.
 Sometimes this button takes a little bit to show up when you first open VS Code. If you're not seeing it, make sure you have the Java extension pack installed and it is active.
 1. It should ask you for a filename. Give it the following filename:
     ```
-    wikipediaData.txt
+    keatsTraining.txt
     ```
     Then hit enter.
 1. It should ask you for a number of words. Enter a positive integer and hit enter.
@@ -57,7 +57,7 @@ Sometimes this button takes a little bit to show up when you first open VS Code.
 1. Open the testing side panel by clicking on the beaker on the left of your screen. ![Test Runner Sidebar in VS Code](images/test_runner.png)
 1. Hover over `ramblebot`. A few grey triangles should appear. Click the triangle the furthest to the left.
 1. You should expect to see all the tests fail. This is good! You haven't written your solution yet, so it's expected for them to fail.
-1. Validate that you can push to your repo by making any change to this README, adding, committing, and pushing it.
+1. Validate that you can push to your repo by making any change to this README, adding, committing, and pushing it...
 
 ## Understanding the Project
 
