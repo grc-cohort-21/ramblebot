@@ -9,7 +9,8 @@ import java.util.Scanner;
  * The model is trained on input text and maps each word to a list of 
  * words that directly follow it in the text.
  */
-public class UnigramWordPredictor implements WordPredictor {
+public class UnigramWordPredictor implements WordPredictor 
+{
   private Map<String, List<String>> neighborMap;
   private Tokenizer tokenizer;
 
@@ -18,7 +19,8 @@ public class UnigramWordPredictor implements WordPredictor {
    * 
    * @param tokenizer the tokenizer used to process the input text
    */
-  public UnigramWordPredictor(Tokenizer tokenizer) {
+  public UnigramWordPredictor(Tokenizer tokenizer) 
+  {
     this.tokenizer = tokenizer;
   }
 
@@ -48,10 +50,35 @@ public class UnigramWordPredictor implements WordPredictor {
    * 
    * @param scanner the Scanner to read the training text from
    */
-  public void train(Scanner scanner) {
+  public void train(Scanner scanner) 
+  {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
     // TODO: Convert the trainingWords into neighborMap here
+    Map<String, List<String>> testMap = new HashMap<String, List<String>>();
+    for (int i = 0; i < trainingWords.size() - 5; i++) 
+    {
+          
+          
+          if (!testMap.containsKey(trainingWords.get(i))) 
+          {
+               List<String> addList = new ArrayList<String>();
+               addList.add(trainingWords.get(i + 1)); // Add if not null later
+               
+               testMap.put(trainingWords.get(i), addList);
+          }
+          else
+          {
+              List<String> addList = testMap.get(trainingWords.get(i));
+              addList.add(trainingWords.get(i + 1)); // Add if not null later
+
+              testMap.put(trainingWords.get(i), addList);
+          }
+
+    }
+
+    System.out.println(testMap);
+
   }
 
   /**
