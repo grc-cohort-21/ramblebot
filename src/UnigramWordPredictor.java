@@ -119,6 +119,9 @@ public class UnigramWordPredictor implements WordPredictor {
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
+    for(String item: context){
+      // neighborMap.get(item)
+    }
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
     return null;
