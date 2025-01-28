@@ -59,7 +59,7 @@ public class UnigramWordPredictor implements WordPredictor {
       }
     }
 
-    Map<String, List<String>> neighborMap = new HashMap<>();
+    neighborMap = new HashMap<>();
 
     for (String item: knownWords) {
       neighborMap.putIfAbsent(item, new ArrayList<>());
