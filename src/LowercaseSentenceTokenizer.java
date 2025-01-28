@@ -32,7 +32,7 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
     // I referenced this to remember string methods https://www.w3schools.com/java/java_ref_string.asp
-    List<String> tokenList = new ArrayList<>();
+    List<String> tokenList = new ArrayList<String>();
     while (scanner.hasNext()) {
       String token = scanner.next().toLowerCase();
       // I originally used a -1 to target the index at the end of the string but soon realized that is used for python but not java
