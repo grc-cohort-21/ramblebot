@@ -54,30 +54,36 @@ public class UnigramWordPredictor implements WordPredictor
   {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
-    // TODO: Convert the trainingWords into neighborMap here
-    Map<String, List<String>> testMap = new HashMap<String, List<String>>();
-    for (int i = 0; i < trainingWords.size() - 5; i++) 
+    // Map
+    Map<String, List<String>> prepNeighborMap = new HashMap<String, List<String>>();
+    
+    // Go through each token in trainingWords
+    for (int i = 0; i < trainingWords.size() -1; i++)
     {
-          
-          
-          if (!testMap.containsKey(trainingWords.get(i))) 
+          // Test for null
+          if (trainingWords.get(i + 1) == null) 
+          {
+               break;
+          }
+          else if (!prepNeighborMap.containsKey(trainingWords.get(i))) // If the token from trainingWords doesn't exist as a key in prepNeighborMap, create one  
           {
                List<String> addList = new ArrayList<String>();
-               addList.add(trainingWords.get(i + 1)); // Add if not null later
+               addList.add(trainingWords.get(i + 1)); // Add the next token from trainingWords to a new list
                
-               testMap.put(trainingWords.get(i), addList);
+               prepNeighborMap.put(trainingWords.get(i), addList);
           }
-          else
+          else // If the token from trainingWords exists as a key in prepNeighborMap, add new token to list
           {
-              List<String> addList = testMap.get(trainingWords.get(i));
-              addList.add(trainingWords.get(i + 1)); // Add if not null later
+              List<String> addList = prepNeighborMap.get(trainingWords.get(i)); // Create a new list from the existing list based on the key
+              addList.add(trainingWords.get(i + 1)); // Add new list item
 
-              testMap.put(trainingWords.get(i), addList);
+              prepNeighborMap.put(trainingWords.get(i), addList);
           }
 
     }
 
-    System.out.println(testMap);
+    // Put the completed map into neighborMap
+    this.neighborMap = prepNeighborMap;
 
   }
 
