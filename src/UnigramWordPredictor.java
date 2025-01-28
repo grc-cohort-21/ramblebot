@@ -62,7 +62,6 @@ public class UnigramWordPredictor implements WordPredictor {
         neighborMap.put(trainingWords.get(i), new ArrayList<String>());
       }
     }
-    System.out.println(neighborMap);
   }
 
   /**
@@ -116,9 +115,7 @@ public class UnigramWordPredictor implements WordPredictor {
     Random rand = new Random();
     String lastWord = context.get(context.size()-1);
     int randomStringIndex = rand.nextInt(neighborMap.get(lastWord).size());
-    
     return neighborMap.get(lastWord).get(randomStringIndex);
-
   }
   
   /**
