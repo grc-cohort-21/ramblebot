@@ -61,15 +61,14 @@ public class UnigramWordPredictor implements WordPredictor {
       String nextWord = trainingWords.get(i+1);
       List<String> tempVals = new LinkedList<>();
       //update temp with previous values.
-      
-      
-      System.out.println("next word: " + nextWord);
-      tempVals.add(nextWord);
-      System.out.println("tempVals: " + tempVals);
-      
-      
-      neighborMap.put(mKey, tempVals);
-      
+      if(neighborMap.containsKey(mKey)){
+        neighborMap.get(mKey).add(nextWord);
+      }else{
+        tempVals.add(nextWord);
+        neighborMap.put(mKey, tempVals);
+      }
+    }    
+  } 
 
 
 
@@ -105,9 +104,9 @@ public class UnigramWordPredictor implements WordPredictor {
       // }else{
         
       // }
-    }
+    
     //System.out.println(getNeighborMap());
-  }
+  
 
   /**
    * Predicts the next word based on the given context.
