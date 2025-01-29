@@ -45,19 +45,6 @@ public class UnigramWordPredictor implements WordPredictor {
    * 
    * 
    * 
-   * for ()
-   * {
-   * 
-   *   for()
-   *   {
-   *      
-   *   }
-   *  
-   * }
-   * 
-   * 
-   * value = the 
-   * 
    * The resulting map (neighborMap) would be:
    * {
    *   "the" -> ["cat", "cat", "dog"],
@@ -68,14 +55,6 @@ public class UnigramWordPredictor implements WordPredictor {
    *   "dog" -> ["barked"],
    *   "barked" -> ["."]
    * }
-   * 
-   * Check if training words contains an element.
-   * (if it does) insert that element into valueWords list 
-   * (if it does) delete that word in training words to find the next
-   * 
-   * clear valued words list everytime the values are inserted at the end of the loop
-   * 
-   * 
    * 
    * The order of the map and the order of each list is not important.
    * 
@@ -121,6 +100,15 @@ public class UnigramWordPredictor implements WordPredictor {
    *   "barked" -> ["."]
    * }
    * 
+   * Step 1 (loop through the list) ["cat", "cat", "dog"];
+   * 
+   * Step 2 Count the amount of times a string shows up in the List 
+   * 
+   * Step 3 Divide the count by the size of the list to get the probability or each string
+   * 
+   * Step 4 return the word with the highest probablity. 
+   * 
+   * 
    * When predicting the next word given a context, the predictor should use 
    * the neighbor map to select a word based on the observed frequencies in 
    * the training data. For example:
@@ -148,8 +136,63 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+    /**
+     * Count the amount of times each word appears in the List
+     * base case if no count is found 
+     * divide the count by the total amount in the list
+     * 
+     */
+    String text = "";
+    double probability = 0.0;
+
+    Map <String, Integer> predictCounter = new HashMap<>();
+    Map <String, Double> probabilityHolder = new HashMap<>();
+
+
+    double highestProb = 0.0;
+    int newCount = 0;
+    int currentCount = 0;
+    for (String word : context)    //starting the count of the word at zero
+    {
+      predictCounter.put(word,0);
+    }
+
+    for (String word : context)    //counting the amount of times a word appears in the list and setting it as a value
+    {
+        currentCount = predictCounter.get(word);
+        newCount = currentCount + 1;
+        predictCounter.put(word,newCount);
+    }
+
+    double total = context.size()+1;    //setting the total amount of words that appear
+
+    for (String word : context)    //getting the probability of a string appearing by dividing by the total and inserting into a map
+    {
+        probability = predictCounter.get(word)/total;
+        probabilityHolder.put(word,probability);
+    }
+
+    for (String word : probabilityHolder.keySet())     //if statements that check the highest probable word to appear 
+    {
+        if(probabilityHolder.size() == 1)
+        {
+          return word;
+        }
+
+        else if(probabilityHolder.get(word) > highestProb)
+        {
+          highestProb = probabilityHolder.get(word);
+        }
+        else if(probabilityHolder.get(word) == highestProb)
+        {
+          return word;
+        }
+        else text = word;
+    }
+
+
+    
+return text;
   }
   
   /**
