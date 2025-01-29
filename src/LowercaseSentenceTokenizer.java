@@ -38,11 +38,15 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
 
     while(scanner.hasNext())
     {
+      //to lowercase and makes a variable for scanner.next()
       String word = scanner.next().toLowerCase();
+
+      // if there are no periods with token
       if(!word.contains("."))
       {
         tokenList.add(word);
       }
+
       //if period is at the end of the sentence or inside word
       else
       {
@@ -54,11 +58,11 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
           tokenList.add(newWord);
           tokenList.add(".");
         }
+
         //period within word
         else
         {
-          String newWord = word + "." + scanner.next();
-          tokenList.add(newWord);
+          tokenList.add(word);
         }
       }
     }    
