@@ -52,38 +52,59 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
-    List<String> tempVals; 
+    
     // TODO: Convert the trainingWords into neighborMap here
     neighborMap = new HashMap<>();
-    for(int i=0; i<trainingWords.size(); i++){
-
-      //create a variable to store map keys
+    for(int i=0; i < trainingWords.size()-1; i++){
+      //create a variable to store map keys and next word.
       String mKey = trainingWords.get(i);
-
-      //check if the token has been completed and added.
-      if(!neighborMap.containsKey(mKey)){
-        tempVals = new LinkedList<>();
-        //find the token and add the next word to tempVals
-        for(int j=0; j<trainingWords.size(); j++){
-
-      //this little if statement was a nightmare for me. I wasn't failing any tests, but my map wasn't correct. I'm not sure if there is a bug in the test
-      //I used 12 println statements with descriptions and variables and finally realized my if statement was running false when it should be true.
-      //you can probably guess what I did wrong but I could not figure out why it was false. I finally found someone on stack overflow with a similar issue.
-      //I forgot Strings are objects and I needed to use .equals() rather than ==
-          if(mKey.equals(trainingWords.get(j))  && j != (trainingWords.size()-1)){
-            tempVals.add(trainingWords.get(j+1));
-
-            //System.out.println("updating " + mKey + " with " + trainingWords.get(j+1));
-            //System.out.println(mKey + " = " + tempVals + " " + i + " " + j);
-          }
-          
-        }
-        //add in the token, and list of values stored
-        neighborMap.put(mKey, tempVals);
+      String nextWord = trainingWords.get(i+1);
+      List<String> tempVals = new LinkedList<>();
+      //update temp with previous values.
       
-      }else{
+      
+      System.out.println("next word: " + nextWord);
+      tempVals.add(nextWord);
+      System.out.println("tempVals: " + tempVals);
+      
+      
+      neighborMap.put(mKey, tempVals);
+      
+
+
+
+
+
+
+
+
+
+
+      //  //check if the token has been completed and added.
+      // if(!neighborMap.containsKey(mKey)){
+
+      //   tempVals = new LinkedList<>();
+      //   //find the token and add the next word to tempVals
+      //   for(int j=0; j<trainingWords.size(); j++){
+
+      // //this little if statement was a nightmare for me. I wasn't failing any tests, but my map wasn't correct. I'm not sure if there is a bug in the test
+      // //I used 12 println statements with descriptions and variables and finally realized my if statement was running false when it should be true.
+      // //you can probably guess what I did wrong but I could not figure out why it was false. I finally found someone on stack overflow with a similar issue.
+      // //I forgot Strings are objects and I needed to use .equals() rather than ==
+      //     if(mKey.equals(trainingWords.get(j))  && j != (trainingWords.size()-1)){
+      //       tempVals.add(trainingWords.get(j+1));
+
+      //       //System.out.println("updating " + mKey + " with " + trainingWords.get(j+1));
+      //       //System.out.println(mKey + " = " + tempVals + " " + i + " " + j);
+      //     }
+          
+      //   }
+      //   //add in the token, and list of values stored
+      //   neighborMap.put(mKey, tempVals);
+      
+      // }else{
         
-      }
+      // }
     }
     //System.out.println(getNeighborMap());
   }
