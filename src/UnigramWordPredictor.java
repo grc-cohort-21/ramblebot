@@ -137,23 +137,10 @@ public class UnigramWordPredictor implements WordPredictor
     List<String> contextList = neighborMap.get(context.getLast());
 
     // Creating a random num generator based on the number of next word options
-    long randNum = Math.round(Math.random() * contextList.size());
-    int convertedRandNum = Integer.parseInt(Long.toString(randNum));
-    //System.out.println(convertedRandNum);
+    int randNum = (int)Math.floor(Math.random() * contextList.size());
 
     // Returning decided next word
-    if (contextList.size() == 1) 
-    {
-          return contextList.get(0);
-    }
-    else if (convertedRandNum == 0) 
-    {
-          return contextList.get(convertedRandNum);
-    }
-    else
-    {
-          return contextList.get(convertedRandNum - 1); // Gives a priotity to first option, need to fix;
-    }
+     return contextList.get(randNum);
 
   }
   
