@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -49,9 +50,18 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
-    List<String> trainingWords = tokenizer.tokenize(scanner);
-
     // TODO: Convert the trainingWords into neighborMap here
+    neighborMap = new HashMap<>();
+    List<String> trainingWords = tokenizer.tokenize(scanner);
+    neighborMap.put(trainingWords.get(0),new ArrayList<>());
+
+    for(int i = 1; i < trainingWords.size(); i++){
+      neighborMap.get(trainingWords.get(i-1)).add(trainingWords.get(i));
+      
+      if(!neighborMap.containsKey(trainingWords.get(i))){
+        neighborMap.put(trainingWords.get(i), new ArrayList<String>());
+      }
+    }
   }
 
   /**
@@ -101,7 +111,11 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
-    return null;
+    //Random class information gathered at https://www.geeksforgeeks.org/generating-random-numbers-in-java/
+    Random rand = new Random();
+    String lastWord = context.get(context.size()-1);
+    int randomStringIndex = rand.nextInt(neighborMap.get(lastWord).size());
+    return neighborMap.get(lastWord).get(randomStringIndex);
   }
   
   /**
