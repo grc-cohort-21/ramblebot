@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**I did some research online asking how I can match words and periods for java and it showed that 
   * regex works really well to match words and periods. Pattern helps match word characters and 
   * Matcher helps find occurrences of the pattern(words) in the input text.
@@ -45,18 +46,75 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
       text.append(scanner.nextLine()).append(" ");
     }
 
-    Pattern pattern = Pattern.compile("\\w+");
-    Matcher matcher = pattern.matcher(text.toString().trim());
+    String inputText = text.toString().toLowerCase().trim();
+
+    Pattern pattern = Pattern.compile("[a-zA-Z0-9']+|\\.");
+    Matcher matcher = pattern.matcher(inputText);
     /**(\\w) matches any letter, digit, or underscore, and "+" means one or more occurrences. So, this pattern matches 
      * individual words in the input. I made a Matcher object to find the occurrences of the pattern in the input text.
      * I converted the StringBuilder to a String and trimmed any trailing whitespace.
+     * 
+     * I just switched the regex pattern to "\\w+|\\.". This pattern handles periods at the end of words. 
+     * "\\w+" is used for words(sequences of word characters)
+     * "\\." is for the periods(to handle them as separate tokens)
+     * source: google search, and https://www.geeksforgeeks.org/regular-expressions-in-java/
+     * Basically, regex expressions are used for defining string patterns when you are searching, manipualting,
+     * or editing a string in Java.
+     * 
+     * After testing this in the LowercaseSentenceTokenizerTest.java, the "Dr. Smith" was being treated as separate
+     * tokens. Specifically, the period was being treated as a separate token. 
+     * To fix this, with research, on google search, I searched what pattern helps input like "Dr. Smith" not be 
+     * treated as separate tokens. 
+     * It gave me the regex pattern "[a-zA-Z0-9']+|\\." That is how I got that regex pattern. 
+     * [a-zA-Z0-9']+ : this part matches words that are made up of letters, both lowercase and uppercase, numbers,
+     * and apostrophes. (Like in "Dr.Smith's").
+     * \\. : This matches a period when it's a separate token, like at the end of a sentence.
+     * 
      */
 
     while (matcher.find()) {
       tokens.add(matcher.group());
     }
+    
+
+
+    /** 
+    StringBuilder currentToken = new StringBuilder();
+    for (int i = 0; i < inputText.length(); i++) {
+      char currentChar = inputText.charAt(i);
+    
+
+      if (Character.isLetterOrDigit(currentChar) || currentChar == '\'') {
+          currentToken.append(currentChar);
+      }
+
+      else if (currentChar == '.') {
+        if (currentToken.length() > 0) {
+          tokens.add(currentToken.toString());
+          currentToken.setLength(0);
+        }
+        tokens.add(".");
+      }
+
+      else if (Character.isWhitespace(currentChar)) {
+        if (currentToken.length() > 0) {
+          tokens.add(currentToken.toString());
+          currentToken.setLength(0);
+        }
+      }
+    }
+
+    if (currentToken.length() > 0) {
+      tokens.add(currentToken.toString());
+    }
+
+*I cannot figure out a way to pass the "Dr.Smith's" test:(( It's always treating the period as a separate token.
+*I tried using a for loop with else if's also but it's still treating it as a separate token. I don't know how to fix it.
+*/
 
     return tokens;
   }
+  
+
 }
 
