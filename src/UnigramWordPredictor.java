@@ -68,10 +68,21 @@ public class UnigramWordPredictor implements WordPredictor {
       
       neighborMap.put(word, wordFollowUpList);
 
-      System.out.println("word: " + word + " | current i: " + currentWordIndex + " | next i: " + nextWordIndex + " | wFL: " + wordFollowUpList + " | tW.get(current): " + trainingWords.get(currentWordIndex) + " | tw.get(next): " + trainingWords.get(nextWordIndex));
+      //System.out.println("word: " + word + " | current i: " + currentWordIndex + " | next i: " + nextWordIndex + " | wFL: " + wordFollowUpList + " | tW.get(current): " + trainingWords.get(currentWordIndex) + " | tw.get(next): " + trainingWords.get(nextWordIndex));
+    
+      
     }
     System.out.println("neighborMap: " + neighborMap);
   }
+
+    /*
+     * Okay so next, I want to make a loop that sees everytime a word is found, it takes the following word. if it appears once in the trainingWords, 
+     * 
+     * for (everyWordInTrainingWordsList) 
+     *    // if map contains (the), then indexOfCurrent(the) + 1 and add it to map
+     * else if map doesnt contain (the), simply add (the) to map and its following index.
+     *   
+     */
 
   /*
    * Working tests:
