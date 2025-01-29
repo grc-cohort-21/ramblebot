@@ -19,6 +19,18 @@ class LowercaseSentenceTokenizerTest {
     /*
      * Write your test here!
      */
+
+     //Found this for help https://stackoverflow.com/questions/7899525/how-to-split-a-string-by-space
+    @Test
+    void testTokenizeWithNoCapitalizationOrPeriodWithLotsOfSpaces()
+    {
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        Scanner scanner = new Scanner("hello      hi hi hi      hello hello");
+        List<String> tokens = tokenizer.tokenize(scanner);
+
+        assertEquals(List.of("hello", "hi", "hi", "hi", "hello", "hello"), tokens);
+    }
+
     
 
     // Wave 3
