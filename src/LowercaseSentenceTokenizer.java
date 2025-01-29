@@ -36,8 +36,9 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
     while(scanner.hasNextLine()) {
       // stores the line
       String line = scanner.nextLine();
-      // makes an array from the line
-      String[] list = line.split("\\s");
+      // makes an array from the line using spaces gets rid of extra spaces with +
+      // source for \\s vs \\s+ : https://stackoverflow.com/a/15625711
+      String[] list = line.split("\\s+");
       // adds items in array to the list of tokens
       for(int i = 0; i < list.length; i++) {
         tokens.add(list[i]);
