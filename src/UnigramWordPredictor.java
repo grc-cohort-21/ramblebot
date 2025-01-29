@@ -133,17 +133,27 @@ public class UnigramWordPredictor implements WordPredictor
    */
   public String predictNextWord(List<String> context) 
   {
-    // FIX INDEX BOUNDARY
-
     // Generating list of next word options
-    List<String> contextList = neighborMap.get(context.get(0));
+    List<String> contextList = neighborMap.get(context.getLast());
 
     // Creating a random num generator based on the number of next word options
     long randNum = Math.round(Math.random() * contextList.size());
     int convertedRandNum = Integer.parseInt(Long.toString(randNum));
+    //System.out.println(convertedRandNum);
 
     // Returning decided next word
-     return contextList.get(convertedRandNum - 1);
+    if (contextList.size() == 1) 
+    {
+          return contextList.get(0);
+    }
+    else if (convertedRandNum == 0) 
+    {
+          return contextList.get(convertedRandNum);
+    }
+    else
+    {
+          return contextList.get(convertedRandNum - 1); // Gives a priotity to first option, need to fix;
+    }
 
   }
   
