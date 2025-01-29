@@ -11,7 +11,7 @@ import java.util.*;
  * words that directly follow it in the text.
  */
 public class UnigramWordPredictor implements WordPredictor {
-  private Map<String, List<String>> neighborMap;
+  private Map<String, List<String>> neighborMap = new HashMap<>();
   private Tokenizer tokenizer;
 
   /**
@@ -62,42 +62,31 @@ public class UnigramWordPredictor implements WordPredictor {
     //two for loops one to add key and then one to walk through list and find following words
     //nested 
 
-    
+
 
     //list of words that follow the key word
     List<String> valueWords = new ArrayList<>();
 
     //loop that adds all word from trainingWords as keys to map
-    for(String keyWords : trainingWords)
+    for(String key : trainingWords)
     {      
-      neighborMap.put(keyWords, valueWords);
-    }
-
-    //loop that walks through keys to then find the words that follow keys
-    for(String key : neighborMap.keySet())
-    {
-      //copy of trainingwords list so that it can be edited without harming actual data
-      List<String> trainingWordsTwo = new ArrayList<>(trainingWords);
-
-      //loop that finds all of the following words for a key and the removes the instances of the keys until there are no more
-      while(trainingWordsTwo.contains(key))
+      // neighborMap.put(keyWords, valueWords);
+      List<String> trainingWordsTwo = new ArrayList<>(trainingWords);      //copy of trainingwords list so that it can be edited without harming actual data
+      while(trainingWordsTwo.contains(key))      //loop that finds all of the following words for a key, adds to list, and the removes the instances of the keys until there are no more
       {
         int followingWordIndex = trainingWordsTwo.indexOf(key) + 1;
-        String followingWord = trainingWordsTwo.get(followingWordIndex);
-        //checks for null value (if not null add, else do nothing and loop will end)
-        if(followingWord != null) 
+        if(!(followingWordIndex > trainingWordsTwo.size()-1)) 
         {
+          String followingWord = trainingWordsTwo.get(followingWordIndex);
           valueWords.add(followingWord);
         }
-        trainingWords.remove(trainingWords.indexOf(key));
+        trainingWordsTwo.remove(trainingWords.indexOf(key));
       }
       //add values to key
       neighborMap.put(key, valueWords);
       //clear list of following words so the list can be reused 
       valueWords.clear();
     }
-
-
   }
 
   /**
