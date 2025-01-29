@@ -42,7 +42,7 @@ public class LowercaseSentenceTokenizer implements Tokenizer
           String punctuationCheck = scanner.next().toLowerCase();
 
           // If it ends with punctuation, separate them as two items
-          if (punctuationCheck.endsWith(".") || punctuationCheck.endsWith("?") || punctuationCheck.endsWith("!") || punctuationCheck.endsWith(",")) 
+          if (punctuationCheck.endsWith(".") || punctuationCheck.endsWith("?") || punctuationCheck.endsWith("!")) 
           {
                tokens.add(punctuationCheck.substring(0, punctuationCheck.length() - 1));
                tokens.add(punctuationCheck.substring(punctuationCheck.length() - 1));
