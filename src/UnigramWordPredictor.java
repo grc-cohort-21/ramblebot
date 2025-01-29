@@ -83,7 +83,8 @@ public class UnigramWordPredictor implements WordPredictor {
         trainingWordsTwo.remove(trainingWords.indexOf(key));
       }
       //add values to key
-      neighborMap.put(key, valueWords);
+      List <String> followingValues = new ArrayList<>(valueWords);
+      neighborMap.put(key, followingValues);
       //clear list of following words so the list can be reused 
       valueWords.clear();
     }
