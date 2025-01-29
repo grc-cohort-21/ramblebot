@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -82,6 +83,29 @@ public class UnigramWordPredictor implements WordPredictor {
   }
 
   /**
+   *
+   * 
+  the quick fox the slow dog the slow cat
+predictor.train()
+  | 
+  v
+this.neighborMap = {
+    "the": ["quick", "slow", "slow"],
+    "quick": ["fox"]
+    "slow": ["dog", "cat"]
+}
+
+---------------
+
+predictor.predictNextWord(["I", "saw", "the"])
+followingWords = neighborMap.get("the") -> ["quick", "slow", "slow"]
+
+rng(3) -> # from [0-2] 
+randomNumber = rng(3)
+followingWords.get(randomNumber) -> ?
+     * 
+     *    * 
+   * 
    * Predicts the next word based on the given context.
    * The prediction is made by randomly selecting from all words 
    * that follow the last word in the context in the training data.
@@ -100,13 +124,6 @@ public class UnigramWordPredictor implements WordPredictor {
    *   "barked" -> ["."]
    * }
    * 
-   * Step 1 (loop through the list) ["cat", "cat", "dog"];
-   * 
-   * Step 2 Count the amount of times a string shows up in the List 
-   * 
-   * Step 3 Divide the count by the size of the list to get the probability or each string
-   * 
-   * Step 4 return the word with the highest probablity. 
    * 
    * 
    * When predicting the next word given a context, the predictor should use 
@@ -134,7 +151,8 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param context a list of words representing the current context
    * @return the predicted next word, or null if no prediction can be made
    */
-  public String predictNextWord(List<String> context) {
+  public String predictNextWord(List<String> context) 
+  {
     // TODO: Return a predicted word given the words preceding it
     /**
      * Count the amount of times each word appears in the List
@@ -142,57 +160,30 @@ public class UnigramWordPredictor implements WordPredictor {
      * divide the count by the total amount in the list
      * 
      */
-    String text = "";
-    double probability = 0.0;
 
-    Map <String, Integer> predictCounter = new HashMap<>();
-    Map <String, Double> probabilityHolder = new HashMap<>();
+    String probableWord = "";
 
-
-    double highestProb = 0.0;
-    int newCount = 0;
-    int currentCount = 0;
-    for (String word : context)    //starting the count of the word at zero
-    {
-      predictCounter.put(word,0);
-    }
-
-    for (String word : context)    //counting the amount of times a word appears in the list and setting it as a value
-    {
-        currentCount = predictCounter.get(word);
-        newCount = currentCount + 1;
-        predictCounter.put(word,newCount);
-    }
-
-    double total = context.size()+1;    //setting the total amount of words that appear
-
-    for (String word : context)    //getting the probability of a string appearing by dividing by the total and inserting into a map
-    {
-        probability = predictCounter.get(word)/total;
-        probabilityHolder.put(word,probability);
-    }
-
-    for (String word : probabilityHolder.keySet())     //if statements that check the highest probable word to appear 
-    {
-        if(probabilityHolder.size() == 1)
-        {
-          return word;
-        }
-
-        else if(probabilityHolder.get(word) > highestProb)
-        {
-          highestProb = probabilityHolder.get(word);
-        }
-        else if(probabilityHolder.get(word) == highestProb)
-        {
-          return word;
-        }
-        else text = word;
-    }
-
-
+    String text = context.get(context.size()-1);
     
-return text;
+    List<String> probaleList = new ArrayList<>();    
+    
+    for (String key : neighborMap.keySet())     
+    {
+      if(text == key)
+      {
+        probaleList = neighborMap.get(key);
+      }
+    }
+
+    Random wordProb = new Random();
+    int max = probaleList.size()-1;
+
+    for (int i = 0; i < probaleList.size(); i++)     
+    {
+      probableWord = probaleList.get(wordProb.nextInt(max - 0 + 1));
+    }
+    
+  return probableWord;
   }
   
   /**
