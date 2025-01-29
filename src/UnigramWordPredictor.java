@@ -155,19 +155,16 @@ followingWords.get(randomNumber) -> ?
   {
     // TODO: Return a predicted word given the words preceding it
     /**
-     * Count the amount of times each word appears in the List
-     * base case if no count is found 
-     * divide the count by the total amount in the list
      * 
      */
 
     String probableWord = "";
 
-    String text = context.get(context.size()-1);
+    String text = context.get(context.size()-1);    //getting the last piece of text in the context
     
-    List<String> probaleList = new ArrayList<>();    
+    List<String> probaleList = new ArrayList<>();    //having the value of the list equal another arraylist
     
-    for (String key : neighborMap.keySet())     
+    for (String key : neighborMap.keySet())     //looping through the map to get the most likely list 
     {
       if(text == key)
       {
@@ -175,10 +172,10 @@ followingWords.get(randomNumber) -> ?
       }
     }
 
-    Random wordProb = new Random();
+    Random wordProb = new Random();    //instantiating a random number generator 
     int max = probaleList.size()-1;
 
-    for (int i = 0; i < probaleList.size(); i++)     
+    for (int i = 0; i < probaleList.size(); i++)     //having the returned probable word return the most likely word from the random number
     {
       probableWord = probaleList.get(wordProb.nextInt(max - 0 + 1));
     }
