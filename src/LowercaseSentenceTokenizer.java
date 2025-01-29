@@ -1,6 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+// import java.util.ArrayList;
+// import java.util.List;
+// import java.util.Scanner;
+import java.util.*;
 
 /**
  * A tokenizer that converts text input to lowercase and splits it 
@@ -31,34 +32,34 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
+    
+    
     List<String> tokenList = new ArrayList<String>();
+
     while(scanner.hasNext())
     {
-      int scanLength = scanner.next().length() -1;
-      String nextWord = scanner.next();
-      if(scanner.next().contains("."))
+      //int scanLength = scanner.next().length() -1;
+      String word = scanner.next().toLowerCase();
+      if(!word.contains("."))
       {
-        if(nextWord.charAt(scanLength) == '.')
-        {
-          String newNextWord = nextWord.substring(0, scanLength-1);
-          tokenList.add(newNextWord);
-          tokenList.add(".");
-        }
-
-        else
-        {          
-          String newWord = nextWord + "." + scanner.next();
-          tokenList.add(newWord);
-        }
-        //for loop for going throug word and checking if there is a period
-        // and if there is one that is not at the end of a sentance than 
-        // add the scanner.next() with the period and with the scanner.nextNext()
-        // if the og scanner.next() breaks it up
+        tokenList.add(word);
       }
+      //if period is at the end of the sentence 
       else
       {
-        tokenList.add(scanner.next());
-      }
+        if(word.charAt(scanner.next().length()-1) == '.')
+        {
+          String newWord = word.substring(0, scanner.next().length()-1); 
+          tokenList.add(newWord);
+          tokenList.add(".");
+        }
+      }    
+
+      // else
+      // {          
+      //   String newWord = nextWord + "." + scanner.next();
+      //   tokenList.add(newWord);
+      // }
     }
     return tokenList;
   }
