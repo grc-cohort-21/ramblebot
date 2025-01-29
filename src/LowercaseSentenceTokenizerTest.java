@@ -16,10 +16,13 @@ class LowercaseSentenceTokenizerTest {
     }
 
     // Wave 2
-    /*
-     * Write your test here!
-     */
-    
+    @Test
+    public void testSentenceWillSplitIntoList() {
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        Scanner scanner = new Scanner("RJ Fredrick Rico is a pool player who will be the best in Washington State.");
+        List<String> tokens = tokenizer.tokenize(scanner);
+        assertEquals(List.of("rj","fredrick", "rico","is","a","pool","player","who","will","be","the","best","in","washington","state","."), tokens);
+    }
 
     // Wave 3
     @Test
