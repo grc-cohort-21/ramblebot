@@ -53,7 +53,7 @@ public class UnigramWordPredictor implements WordPredictor {
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
     List<String> tempVals; 
-    
+    System.out.println(trainingWords);
     // TODO: Convert the trainingWords into neighborMap here
     neighborMap = new HashMap<>();
     for(int i=0; i<trainingWords.size(); i++){
@@ -66,14 +66,24 @@ public class UnigramWordPredictor implements WordPredictor {
         tempVals = new LinkedList<>();
         //find the token and add the next word to tempVals
         for(int j=0; j<trainingWords.size(); j++){
-          if(mKey == trainingWords.get(j) && j != (trainingWords.size()-1)){
+          System.out.println(mKey + " " + trainingWords.get(j));
+
+      //this little if statement was a nightmare for me. I wasn't failing any tests, but my map wasn't correct. I'm not sure if there is a bug in the test
+      //I used 12 println statements with descriptions and variables and finally realized my if statement was running false when it should be true.
+      //you can probably guess what I did wrong but I could not figure out why it was false. I finally found someone on stack overflow with a similar issue.
+      //I forgot Strings are objects and I needed to use .equals() rather than ==
+          if(mKey.equals(trainingWords.get(j))  && j != (trainingWords.size()-1)){
             tempVals.add(trainingWords.get(j+1));
+            System.out.println("updating tempVals with " + trainingWords.get(j+1));
           }
+          System.out.println(mKey + " = " + tempVals + " " + i + " " + j);
         }
         //add in the token, and list of values stored
         neighborMap.put(mKey, tempVals);
+        System.out.println(getNeighborMap());
       }else{
-
+        System.out.println(getNeighborMap());
+        System.out.println("stuff");
       }
     }
     System.out.println(getNeighborMap());
