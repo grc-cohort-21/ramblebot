@@ -42,8 +42,8 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
       // make the text lowercase
       String token = text.next().toLowerCase();
 
-      // if the word has a period at the end '.'
-      if(token.contains(".")&& !token.substring(token.length()-1).equals(".")){
+      // if a word has a period and its not at the end of the word.
+      if(token.contains("." ) && token.substring(token.length()-1).equals(".")){
         // add the substring of the token that does not contain the period
         tokened.add(token.substring(0, token.length()-1));
         // add a period
