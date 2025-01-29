@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+
 /**
  * A class for predicting the next word in a sequence using a unigram model.
  * The model is trained on input text and maps each word to a list of 
@@ -19,7 +20,8 @@ public class UnigramWordPredictor implements WordPredictor
    * 
    * @param tokenizer the tokenizer used to process the input text
    */
-  public UnigramWordPredictor(Tokenizer tokenizer) {
+  public UnigramWordPredictor(Tokenizer tokenizer) 
+  {
     this.tokenizer = tokenizer;
   }
 
@@ -52,7 +54,7 @@ public class UnigramWordPredictor implements WordPredictor
   public void train(Scanner scanner) //method called train passing in Scanner named scanner
   {
       List<String> trainingWords = tokenizer.tokenize(scanner); //traingWords will contain list of strings from a file, since we cant pass a file. Training words object is now the cup that holds the string of words here..
-      neighborMap = new HashMap<>(); //initialize neighborMap
+      neighborMap = new HashMap<>(); //initialize neighborMap...neighborMap is the whole key, value map of strings. 
       //[1][2][3][4][5] number qty size
       //[0][1][2][3][4] number index
 
@@ -127,9 +129,16 @@ public class UnigramWordPredictor implements WordPredictor
    * 
    * @param context a list of words representing the current context
    * @return the predicted next word, or null if no prediction can be made
+   * 
+   *  //[1][2][3][4][5] number qty size
+      //[0][1][2][3][4] number index
    */
-  public String predictNextWord(List<String> context) {
+  public String predictNextWord(List<String> context) //list of Strings named context 
+  {
     // TODO: Return a predicted word given the words preceding it
+    String lastWord = context.get(context.size() -1);  //size will start with 1. index is 0. Get will want to get a number. 
+
+   
     // Hint: only the last word in context should be looked at
     return null;
   }
@@ -142,10 +151,12 @@ public class UnigramWordPredictor implements WordPredictor
    * 
    * @return a copy of the neighbor map
    */
-  public Map<String, List<String>> getNeighborMap() {
+  public Map<String, List<String>> getNeighborMap() 
+  {
     Map<String, List<String>> copy = new HashMap<>();
 
-    for (Map.Entry<String, List<String>> entry : neighborMap.entrySet()) {
+    for (Map.Entry<String, List<String>> entry : neighborMap.entrySet()) 
+    {
       List<String> newList = new ArrayList<>(entry.getValue());
       copy.put(entry.getKey(), newList);
     }
