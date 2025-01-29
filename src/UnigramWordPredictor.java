@@ -50,19 +50,25 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public void train(Scanner text) {
     List<String> trainingWords = tokenizer.tokenize(text);
+    int counter = 0;
     // TODO: Convert the trainingWords into neighborMap here
     
     // make a hashmap that uses a word as keys, and a list of words as a value.
+    HashMap<String, List<String>> neighborMap = new HashMap<>();
 
-    // go through every word one by one. (for loop would like be best as I can use the index value + 1 to look at the next letter in the list)
-      // check if word at i is already a key
-      // if it is not
-        // put the word at i in as a key, and make the value be an empty list
-        // add the word at i + 1 into the list
-      //if it is
-        // grab the list
-        // add the word at i + 1 as the next item in the list
-
+    for(String key : trainingWords){
+      //System.out.println("key is: " + key);
+      if(!neighborMap.containsKey(key)){
+        List<String> mapped = new ArrayList<>();
+        neighborMap.put(key, mapped);
+      }
+      if(counter < trainingWords.size() - 1){
+      //System.out.println("I triggered");
+      neighborMap.get(key).add(trainingWords.get(counter+1));
+      counter++;
+      }
+      //System.out.println(neighborMap.get(key));
+    }
   }
 
   /**
