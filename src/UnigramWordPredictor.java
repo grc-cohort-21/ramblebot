@@ -55,6 +55,8 @@ public class UnigramWordPredictor implements WordPredictor {
     System.out.println("tW:" + trainingWords); // testing
     System.out.println("nM:" + neighborMap);   // testing
 
+    neighborMap = new HashMap<String, List<String>>();
+
     for (String word : trainingWords)
     {
 
@@ -64,10 +66,11 @@ public class UnigramWordPredictor implements WordPredictor {
       int nextWordIndex = trainingWords.indexOf(word)+1;
       wordFollowUpList.add(trainingWords.get(nextWordIndex));
       
-      System.out.println("word: " + word + " | current i: " + currentWordIndex + " | next i: " + nextWordIndex + " | wFL: " + wordFollowUpList + " | tW.get(current): " + trainingWords.get(currentWordIndex) + " | tw.get(next): " + trainingWords.get(nextWordIndex));
+      neighborMap.put(word, wordFollowUpList);
 
-      //neighborMap.put(word, wordFollowUpList);
+      System.out.println("word: " + word + " | current i: " + currentWordIndex + " | next i: " + nextWordIndex + " | wFL: " + wordFollowUpList + " | tW.get(current): " + trainingWords.get(currentWordIndex) + " | tw.get(next): " + trainingWords.get(nextWordIndex));
     }
+    System.out.println("neighborMap: " + neighborMap);
   }
 
   /*
