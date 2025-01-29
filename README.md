@@ -1,4 +1,12 @@
-# small edit
+# FINAL COMMIT COMMENTS
+
+OOF that was alot, however thank you for the office hours to figure out save 4. it was really eye opening! I did use alot of the code we discussed but I made sure to understand what it was doing before I implemented it.
+
+Shoutout stack overflow to help me get over wave 4 but wave 5 and 6 was fun to complete
+
+All 9 test cases pass. Words are able to be generated on edgarAllenPoe.txt
+
+please let me know if any improvements/imperfections are spotted!
 
 # ramblebot
 
