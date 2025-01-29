@@ -26,7 +26,8 @@ class UnigramWordPredictorTest
      * The test does not care about the order of the map or the lists.
      */
     @Test
-    void testTrainAndGetNeighborMap() {
+    void testTrainAndGetNeighborMap() 
+    {
         // Use a fake tokenizer with predefined tokens
         FakeTokenizer fakeTokenizer = new FakeTokenizer(
             List.of("the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", ".")

@@ -56,25 +56,30 @@ public class UnigramWordPredictor implements WordPredictor
       //[1][2][3][4][5] number qty size
       //[0][1][2][3][4] number index
 
-      for (int i = 0; i <= trainingWords.size() -1; i++) //iterate through the list             
+      for (int i = 0; i < trainingWords.size(); i++) //iterate through the list             
       {                                                                                     
-            String keyWord = trainingWords.get(i); //creating keyword
-            String keyWordNext = trainingWords.get(i + 1); //creating next keyword 
+            String keyWord = trainingWords.get(i); //creating keyword // String keyWordNext = trainingWords.get(i + 1); //creating next keyword
 
-            List<String> keyValue = new ArrayList<>(); //creating a list called keyValue
+            if(!neighborMap.containsKey(keyWord))
+            {
 
-             keyValue.add(keyWordNext); //actually doing something after the iterating. with .add by adding the string in the position of keyWordNext. 
+              List<String> keyValue = new ArrayList<>(); //creating a list called keyValue
+
+              for(int j = 0; j < trainingWords.size(); j++)
+              {
 
 
-
-            neighborMap.put(keyWord, keyValue); //the key in the map will be the strings from training words named keyWord. The value in this position is an arrayList named keyValue. 
-
+                  if(keyWord.equals(trainingWords.get(j)) && j + 1 < trainingWords.size()) //checks the values that are in keyWord and trainingWords and see if the values in index j matches. 
+                  {
+                    int k = j + 1; //storing index j + 1 to a variable
+                    keyValue.add(trainingWords.get(k)); //actually doing something after the iterating. with .add by adding the string in the position of keyWordNext. 
+                  }
+                
+              }
+              neighborMap.put(keyWord, keyValue); //the key in the map will be the strings from training words named keyWord. The value in this position is an arrayList named keyValue. 
+              //how do i extract the words from trainingWords and put the unique words into neighborMap
+            }
       }   
-
-      //how do i extract the words from trainingWords and put the unique words into neighborMap
-   
-
-// TODO: Convert the trainingWords into neighborMap here
 
     
   }
