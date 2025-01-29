@@ -62,6 +62,32 @@ public class UnigramWordPredictor implements WordPredictor {
     //two for loops one to add key and then one to walk through list and find following words
     //nested 
 
+    //list of words that follow the key word
+
+    
+    List<String> valueWords = new ArrayList<>();
+    for(String keyWords : trainingWords)
+    {      
+      neighborMap.put(keyWords, valueWords);
+    }
+
+    for(String key : neighborMap.keySet())
+    {
+      List<String> trainingWordsTwo = new ArrayList<>(trainingWords);
+      while(trainingWordsTwo.contains(key))
+      {
+        int followingWordIndex = trainingWordsTwo.indexOf(key) + 1;
+        String followingWord = trainingWordsTwo.get(followingWordIndex);
+        if(followingWord != null)
+        {
+          valueWords.add(followingWord);
+        }
+        trainingWords.remove(trainingWords.indexOf(key));
+      }
+      valueWords.clear();
+    }
+
+
   }
 
   /**
