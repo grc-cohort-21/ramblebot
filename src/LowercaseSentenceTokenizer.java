@@ -1,5 +1,13 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**I did some research online asking how I can match words and periods for java and it showed that 
+  * regex works really well to match words and periods. Pattern helps match word characters and 
+  * Matcher helps find occurrences of the pattern(words) in the input text.
+*/
 
 /**
  * A tokenizer that converts text input to lowercase and splits it 
@@ -30,7 +38,25 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
+    List<String> tokens = new ArrayList<>();
+    StringBuilder text = new StringBuilder();
+
+    while (scanner.hasNextLine()) {
+      text.append(scanner.nextLine()).append(" ");
+    }
+
+    Pattern pattern = Pattern.compile("\\w+");
+    Matcher matcher = pattern.matcher(text.toString().trim());
+    /**(\\w) matches any letter, digit, or underscore, and "+" means one or more occurrences. So, this pattern matches 
+     * individual words in the input. I made a Matcher object to find the occurrences of the pattern in the input text.
+     * I converted the StringBuilder to a String and trimmed any trailing whitespace.
+     */
+
+    while (matcher.find()) {
+      tokens.add(matcher.group());
+    }
+
+    return tokens;
   }
 }
 
