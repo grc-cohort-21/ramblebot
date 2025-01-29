@@ -112,15 +112,15 @@ public class UnigramWordPredictor implements WordPredictor {
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-
-    // Initialize Random generator
-    // get the map of keys & list of neighbors
-    // get the size of the list that belongs to a certain key
-    // randomly generate a number bound by the size of the list
-    // return a word from that list at the index of the random number
-    return null;
+    // making these seperate so that the return is not even more of an eyesore
+    Random num = new Random();
+    String word = context.get(context.size() - 1);
+    
+    // This lad is chunky
+    // First, we get the size of the list belonging to a key.
+    // with this, generate a number using the size of the list
+    // then we pick a random word in the list using the randomly generated number
+    return (this.neighborMap.get(word).get(num.nextInt(this.getNeighborMap().get(word).size())));
   }
   
   /**
