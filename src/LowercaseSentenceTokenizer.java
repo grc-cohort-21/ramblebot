@@ -1,5 +1,20 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+/**
+ * @author Shawn Nguru 
+ * SDEV 301 RambleBot
+ * 1-21-25 
+ * 
+ * Problems/Bugs/Issues: 
+ * 
+ * 
+ * Notes/plans: 
+ * Iterate through the String (1)
+ * split(String regex) a Split method by the spaces and symbols (2)
+ * Insert the strings into a list of strings (3)
+ */
 
 /**
  * A tokenizer that converts text input to lowercase and splits it 
@@ -29,8 +44,35 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    * @return a list of tokens, where each token is a word or a period
    */
   public List<String> tokenize(Scanner scanner) {
-    // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
+    List<String> textList =new ArrayList<String>();
+
+    String text = scanner.nextLine();    //put the input text in a string array
+
+    String[] arr = text.split(" ");   //split the array based on spaces in the text
+
+    for(int i = 0; i<= arr.length-1; i++)   //add the content of the array into the list of strings
+    {
+
+
+
+      if(arr[i] == " " || arr[i] == "  " || arr[i] == "")    //filtering out the extra spaces inside the arrayList
+      {
+
+      }
+      else if(arr[i].endsWith("."))
+      {
+       arr[i] = arr[i].replace('.', ' ');
+       textList.add(arr[i].trim().toLowerCase());
+       textList.add(".");
+      }
+      else
+      {
+        textList.add(arr[i].toLowerCase());
+      }
+    }
+
+
+return textList;
   }
 }
 
