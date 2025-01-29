@@ -52,6 +52,7 @@ class UnigramWordPredictorTest {
         );
 
         assertEquals(expectedMap, neighborMap);
+        System.out.println(neighborMap);
     }
 
     // Wave 5
