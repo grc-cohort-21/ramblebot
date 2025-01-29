@@ -52,7 +52,29 @@ public class UnigramWordPredictor implements WordPredictor {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
     // TODO: Convert the trainingWords into neighborMap here
+    System.out.println("tW:" + trainingWords); // testing
+    System.out.println("nM:" + neighborMap);   // testing
+
+    for (String word : trainingWords)
+    {
+
+      List<String> wordFollowUpList = new ArrayList<String>();
+      
+      int currentWordIndex = trainingWords.indexOf(word);
+      int nextWordIndex = trainingWords.indexOf(word)+1;
+      wordFollowUpList.add(trainingWords.get(nextWordIndex));
+      
+      System.out.println("word: " + word + " | current i: " + currentWordIndex + " | next i: " + nextWordIndex + " | wFL: " + wordFollowUpList + " | tW.get(current): " + trainingWords.get(currentWordIndex) + " | tw.get(next): " + trainingWords.get(nextWordIndex));
+
+      //neighborMap.put(word, wordFollowUpList);
+    }
   }
+
+  /*
+   * Working tests:
+   * System.out.println("WORD: " + word); result: prints "WORD: upon" etc.
+   * wordFollowUpList.add(word);          result: adds "upon" in list
+   */
 
   /**
    * Predicts the next word based on the given context.
