@@ -63,17 +63,20 @@ public class UnigramWordPredictor implements WordPredictor {
 
       //check if the token has been completed and added.
       if(!neighborMap.containsKey(mKey)){
-        tempVals = new ArrayList<>();
+        tempVals = new LinkedList<>();
         //find the token and add the next word to tempVals
         for(int j=0; j<trainingWords.size(); j++){
-          if(mKey == trainingWords.get(j) && j != trainingWords.size()-1){
+          if(mKey == trainingWords.get(j) && j != (trainingWords.size()-1)){
             tempVals.add(trainingWords.get(j+1));
           }
         }
         //add in the token, and list of values stored
         neighborMap.put(mKey, tempVals);
+      }else{
+
       }
     }
+    System.out.println(getNeighborMap());
   }
 
   /**
@@ -121,7 +124,7 @@ public class UnigramWordPredictor implements WordPredictor {
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
-    List<String> vals = new ArrayList<>();
+    List<String> vals = new LinkedList<>();
     String lastWord = context.get(context.size()-1);
     // random number research: https://www.tutorialspoint.com/java/util/random_nextint_inc_exc.htm
     Random picker = new Random();
@@ -151,7 +154,7 @@ public class UnigramWordPredictor implements WordPredictor {
       List<String> newList = new ArrayList<>(entry.getValue());
       copy.put(entry.getKey(), newList);
     }
-
+    System.out.println(copy);
     return copy;
   }
 }
