@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * A class for predicting the next word in a sequence using a unigram model.
@@ -113,6 +114,12 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
+
+    // Initialize Random generator
+    // get the map of keys & list of neighbors
+    // get the size of the list that belongs to a certain key
+    // randomly generate a number bound by the size of the list
+    // return a word from that list at the index of the random number
     return null;
   }
   
