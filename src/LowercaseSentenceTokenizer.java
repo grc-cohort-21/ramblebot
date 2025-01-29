@@ -45,6 +45,11 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
           tokenList.add(".");
         }
 
+        else
+        {          
+          String newWord = nextWord + "." + scanner.next();
+          tokenList.add(newWord);
+        }
         //for loop for going throug word and checking if there is a period
         // and if there is one that is not at the end of a sentance than 
         // add the scanner.next() with the period and with the scanner.nextNext()
