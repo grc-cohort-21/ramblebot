@@ -1,0 +1,3 @@
+e7eEnter the filename: oscarWildeTraining.txt
+Enter the number of words to generate: 10
+to live is never of any use to pass it
