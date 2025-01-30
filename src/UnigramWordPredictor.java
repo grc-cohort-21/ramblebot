@@ -139,10 +139,10 @@ public class UnigramWordPredictor implements WordPredictor
 
     String lastWord = context.get(context.size() -1);  //size will start with 1. index is 0. Get will want to get a number. 
     
-      List<String> chosenList = neighborMap.get(lastWord); //getting last
-      int randomly = (int)(Math.random() * chosenList.size()); //using math.random to autogenerate 
-      return chosenList.get(randomly); 
-      
+    List<String> chosenList = neighborMap.get(lastWord); //getting last
+    int randomly = (int)(Math.random() * chosenList.size()); //using math.random to autogenerate 
+    return chosenList.get(randomly); 
+
     // Hint: only the last word in context should be looked at
     //return null;
   }
