@@ -65,11 +65,11 @@ public class UnigramWordPredictor implements WordPredictor {
 
 
     //list of words that follow the key word
-    List<String> valueWords = new ArrayList<>();
 
     //loop that adds all word from trainingWords as keys to map
     for(String key : trainingWords)
-    {      
+    {  
+      List<String> valueWords = new ArrayList<>();    
       List<String> trainingWordsTwo = new ArrayList<>(trainingWords);      //copy of trainingwords list so that it can be edited without harming actual data
       while(trainingWordsTwo.contains(key))      //loop that finds all of the following words for a key, adds to list, and the removes the instances of the keys until there are no more
       {
@@ -78,16 +78,12 @@ public class UnigramWordPredictor implements WordPredictor {
         {
           String followingWord = trainingWordsTwo.get(followingWordIndex);
           valueWords.add(followingWord);
-          trainingWordsTwo.remove(trainingWords.indexOf(key));
         }
-        //removing the word will change the following word
-        //trainingWordsTwo.remove(trainingWords.indexOf(key));
+        trainingWordsTwo.remove(trainingWordsTwo.indexOf(key));
+
       }
       //add values to key
-      List <String> followingValues = new ArrayList<>(valueWords);
-      neighborMap.put(key, followingValues);
-      //clear list of following words so the list can be reused 
-      valueWords.clear();
+      neighborMap.put(key, valueWords);
     }
   }
 
