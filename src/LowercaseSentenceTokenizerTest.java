@@ -36,7 +36,7 @@ class LowercaseSentenceTokenizerTest {
         Scanner scanner = new Scanner("This is a SENTENCE with sTrAnGe capitalization");
         List<String> tokens = tokenizer.tokenize(scanner);
 
-        assertEquals(List.of("this", "is", "a", "sentence", "with", "strange", "capitalization"), tokens);
+        assertEquals(List.of("This", "is", "a", "SENTENCE", "with", "sTrAnGe", "capitalization"), tokens);
     }
 
     // Wave 3

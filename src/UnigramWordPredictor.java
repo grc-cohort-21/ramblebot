@@ -47,11 +47,20 @@ public class UnigramWordPredictor implements WordPredictor {
    * The order of the map and the order of each list is not important.
    * 
    * @param scanner the Scanner to read the training text from
-   */
-  public void train(Scanner scanner) {
+      * @return 
+      */
+     public List<String> train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
+
     // TODO: Convert the trainingWords into neighborMap here
+    while (scanner.hasNext()) {
+      String train = scanner.next();
+      trainingWords.add(train);
+    }
+  
+  return trainingWords;
+
   }
 
   /**
