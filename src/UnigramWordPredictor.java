@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * A class for predicting the next word in a sequence using a unigram model.
@@ -52,6 +53,26 @@ public class UnigramWordPredictor implements WordPredictor {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
     // TODO: Convert the trainingWords into neighborMap here
+    neighborMap = new HashMap<String, List<String>>(); 
+
+    for (int i=0; i < trainingWords.size()-1; i++)
+    {
+      
+      List<String> wordFollowUpList = new ArrayList<String>();
+ 
+      if (!neighborMap.containsKey(trainingWords.get(i)))
+      {                                  
+        wordFollowUpList.add(trainingWords.get(i+1));
+        neighborMap.put(trainingWords.get(i), wordFollowUpList);
+      }
+      else
+      {
+        List<String> currentWordsList = neighborMap.get(trainingWords.get(i));
+        currentWordsList.add(trainingWords.get(i+1));
+        neighborMap.put(trainingWords.get(i), currentWordsList);
+      }
+    }
+    System.out.println(neighborMap);
   }
 
   /**
@@ -101,7 +122,34 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
-    return null;
+
+    // if number of words to generate is 1, "upon" will be generated
+    String startingWord = "";
+    List<String> temp = new ArrayList<String>();
+    temp.addAll(getNeighborMap().keySet());
+    startingWord = temp.get(0);
+    System.out.println("TEMP: " + temp);
+    System.out.println("STARTING WORD: " + startingWord);
+
+    context = getNeighborMap().get(startingWord); // build off the fact that index0 is always gonna be first
+    System.out.println("CURRENT CONTEXT: " + context);
+
+    int max = context.size()-1;
+    int min = 0;
+    Random r = new Random();
+    int randomNum = r.nextInt(max-min+1) + min;
+
+    String randomWord = "";
+
+    randomWord = context.get(randomNum);
+    context = getNeighborMap().get(randomWord);
+
+    System.out.println(" | next word: " + randomWord);
+    System.out.println(" | next context: " + context);
+    System.out.println(" | size of context: " + context.size());
+
+    return randomWord;
+    //return randomWord; // "upon" is still generated with 1, even when null.
   }
   
   /**

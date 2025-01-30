@@ -17,8 +17,19 @@ class LowercaseSentenceTokenizerTest {
 
     // Wave 2
     /*
-     * Write your test here!
+     * Write your test here! everything works for initial commit
      */
+    @Test
+    void testCodeHandlesInputWithManyCase() 
+    {
+        // Arrange
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        Scanner scanner = new Scanner("hi hi hi");
+        List<String> tokens = tokenizer.tokenize(scanner);
+
+        // Act & Assert
+        assertEquals(List.of("hi", "hi", "hi"), tokens);
+    }
     
 
     // Wave 3
