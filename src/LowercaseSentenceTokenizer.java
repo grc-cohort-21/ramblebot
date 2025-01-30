@@ -39,6 +39,10 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
         if (token.length() == 1) {
           tokens.add(".");
         }
+    }else {
+      String wordWithoutPeriod = token.substring(0, token.length() - 1);
+      tokens.add(wordWithoutPeriod);
+      tokens.add(".");
     }
 
     return tokens;
