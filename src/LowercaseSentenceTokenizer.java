@@ -40,24 +40,31 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
       String[] words = sentence.split("\\s+");
 
       for (String word : words) {
-        // Go past empty Strings
+        // Skip empty Strings
         if (word.isEmpty()) {
           continue; 
         }
 
         // Checks if word ends with period but has more after like Dr.Smith
-        String withoutPeriod = word.substring(0,word.length()-1);
+        // Went against your recommendation and spent to much time worrying about periods LOL
+        if (word.length() > 1 && word.endsWith(".")) {
+          String withoutPeriod = word.substring(0,word.length()-1);
 
-        // Don't split unless It's the last character and followed by a space
-        if (withoutPeriod.contains(".")) {
+          if (withoutPeriod.contains(".")) {
+            // keep words that like dr.smith
+            tokens.add(word);
+          } else {
+            // split regular words ending with period as two separate elements
+            // This logics pretty funny
+            tokens.add(withoutPeriod);
+            tokens.add(".");
+          }
+        }      
+        //add normal words that don't end with period
+        else {
           tokens.add(word);
-        } else {
-          tokens.add(withoutPeriod);
-          tokens.add(".");
-        }
-        
+        }  
       }  
-      
     }
 
     return tokens;
