@@ -29,14 +29,29 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    * @param scanner the Scanner to read the input text from
    * @return a list of tokens, where each token is a word or a period
    */
-public List<String> tokenize(Scanner scanner) {
+
+   @Override //forgot to add an override before oopsie
+   public List<String> tokenize(Scanner scanner) {
 
   List<String> tokens = new ArrayList<>(); //makes an arrayList for the tokens to be placed into
     while(scanner.hasNext()){
-      tokens.add(scanner.next().toLowerCase()); 
-    }
-    return tokens; //returns a list of tokes
-}
+      String rambleWord = scanner.next().toLowerCase();
+      int length = getLength(rambleWord);
 
-}
+        if (length > 0 && rambleWord.charAt(length-1) == '.' && length > 1){
+          tokens.add(rambleWord.substring(0,length-1)); //adds word, removes end period
+          tokens.add("."); //readds period as a different token
+          }
+          else {
+            tokens.add(rambleWord);
+          }
+        }
+        return tokens;
+      }
+
+public int getLength(String string){
+  return string.length();
+  }
+
+} //end LowerCaseTokenizer.java
 
