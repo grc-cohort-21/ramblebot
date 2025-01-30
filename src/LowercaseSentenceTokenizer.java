@@ -44,8 +44,11 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
       tokens.add(wordWithoutPeriod);
       tokens.add(".");
     }
-
-    return tokens;
+  } else {
+    tokens.add(token);
   }
+}
+
+return tokens;
 }
 
