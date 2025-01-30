@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,15 +31,36 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
+    List<String> tokens = new ArrayList<>();
 
-    // Get sentence from user
-    Scanner wordInput = new Scanner(System.in);
-    String sentence = scanner.nextLine();
+    while (scanner.hasNextLine()) {
+      String sentence = scanner.nextLine().toLowerCase();
 
-    // Split the sentence into words after a space, comma or period
-    String[] words = sentence.split(",\\s\\.");
-    
-    return null;
+      // Split the sentence by whitespace (s+ means one or more)
+      String[] words = sentence.split("\\s+");
+
+      for (String word : words) {
+        // Go past empty Strings
+        if (word.isEmpty()) {
+          continue; 
+        }
+
+        // Checks if word ends with period but has more after like Dr.Smith
+        String withoutPeriod = word.substring(0,word.length()-1);
+
+        // Don't split unless It's the last character and followed by a space
+        if (withoutPeriod.contains(".")) {
+          tokens.add(word);
+        } else {
+          tokens.add(withoutPeriod);
+          tokens.add(".");
+        }
+        
+      }  
+      
+    }
+
+    return tokens;
   }
 }
 
