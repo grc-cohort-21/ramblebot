@@ -122,10 +122,10 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
-    String prediction = "";
+    //String prediction = "";
 
-    if (prediction == "")
-    {
+    //if (prediction == "")
+    //{
       int max = getNeighborMap().keySet().size()-1;
       int min = 0;
 
@@ -142,18 +142,18 @@ public class UnigramWordPredictor implements WordPredictor {
       //prediction = test.get(randomNum);
 
       // i need to make use of context list parameter
-      String word = "";
-      word = test.get(randomNum);
-      context = getNeighborMap().get(word);
+      String randomWord = "";
+      randomWord = test.get(randomNum);
+      context = getNeighborMap().get(randomWord);
       
-      System.out.println("word: " + word);
-      System.out.println("context list: " + context);
-    }
+      System.out.println("word: " + randomWord);
+      System.out.println(" | context list: " + context);
+    //}
 
     //System.out.println("test:" + getNeighborMap());
 
-    return prediction;
-    //return null;
+    //return randomWord;
+    return "";
   }
   
   /**
