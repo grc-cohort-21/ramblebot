@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -108,11 +109,23 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param context a list of words representing the current context
    * @return the predicted next word, or null if no prediction can be made
    */
+  @Override //added override
   public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+   
+    String lastWord = context.get(context.size() -1);
+    List<String> nextWord = neighborMap.get(lastWord);
+
+      if (nextWord == null || nextWord.isEmpty()){
+        return null;
+      }
+
+    Random rand = new Random(); //didn't copy and paste anything, but I read up on how to use Random with this site: https://www.geeksforgeeks.org/generating-random-numbers-in-java/
+    int randomRamble = rand.nextInt(nextWord.size());
+
+      return nextWord.get(randomRamble);
+
   }
+
   
   /**
    * Returns a copy of the neighbor map. The neighbor map is a mapping 
