@@ -4,6 +4,7 @@
 // import java.util.Map;
 // import java.util.Scanner;
 import java.util.*;
+import java.io.*;
 
 /**
  * A class for predicting the next word in a sequence using a unigram model.
@@ -130,7 +131,29 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
-    return null;
+
+
+    //INITIAL THOUGHTS
+    //count all the times a word appears
+    // use that data to find the make up of the following word list 
+    // use that make up to calculate how often a word follows a given word
+    // use that percentage to calculate random number 
+    // use random number to access predicted word from og list 
+
+    //Last word in context
+    String contextWord = context.get(context.size()-1);
+    List<String> followingWords = new ArrayList<>(neighborMap.get(contextWord));  //gets list of values for key in map
+    // logic to find probability...
+    // random math 
+    Random rand = new Random();
+    int min = 0;
+    int max = followingWords.size()-1;
+    int range = max - min + 1;
+    int randIndex = rand.nextInt(range)+min;
+
+    //predicting the new word
+    String predictedWord = followingWords.get(randIndex);
+    return predictedWord;
   }
   
   /**
