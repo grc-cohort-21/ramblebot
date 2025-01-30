@@ -47,7 +47,7 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
         for (String word : words) {
             if (word.endsWith(".")) {
               // I ues the substring in this website https://www.w3schools.com/jsref/jsref_substring.asp
-              /* explain what this code do
+              /* explain what this code do...
               This code reads a sentence, converts it to lowercase, and splits it into words. It then checks
 if any word ends with a period (.). If there is a period at the end of a word, the period is
 separated and stored as its own token. Anything without a period gets directly added to the list. Finally,
