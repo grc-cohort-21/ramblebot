@@ -126,7 +126,7 @@ public class UnigramWordPredictor implements WordPredictor {
 
     //if (prediction == "")
     //{
-      int max = getNeighborMap().keySet().size()-1;
+      /*int max = getNeighborMap().keySet().size()-1;
       int min = 0;
 
       Random r = new Random();
@@ -148,6 +148,37 @@ public class UnigramWordPredictor implements WordPredictor {
       
       System.out.println("word: " + randomWord);
       System.out.println(" | context list: " + context);
+      System.out.println(" | size: " + context.size());*/
+      
+      // if case for FIRST word that starts entire story
+      String randomWord = "";
+
+      List<String> tempContext = new ArrayList<String>();
+      tempContext.addAll(getNeighborMap().keySet());
+
+      int max = tempContext.size()-1;
+      int min = 0;
+
+      Random r = new Random();
+      int randomNum = r.nextInt(max-min+1) + min;
+
+      randomWord = tempContext.get(randomNum);
+
+      // else case for if story already started
+
+      int newMax = context.size()-1;
+      int newMin = 0;
+
+      Random r = new Random();
+
+      int newRandomNum = r.nextInt(newMax-newMin+1) + newMin;
+
+      randomWord = context.get(newRandomNum);
+
+      System.out.println("word: " + randomWord);
+      System.out.println(" | context list: " + context);
+      System.out.println(" | size: " + context.size());
+
     //}
 
     //System.out.println("test:" + getNeighborMap());
