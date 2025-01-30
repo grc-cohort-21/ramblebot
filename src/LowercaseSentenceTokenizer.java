@@ -30,7 +30,13 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
+
+    // Get sentence from user
     Scanner wordInput = new Scanner(System.in);
+    String sentence = scanner.nextLine();
+
+    // Split the sentence into words after a space, comma or period
+    String[] words = sentence.split(",\\s\\.");
     
     return null;
   }
