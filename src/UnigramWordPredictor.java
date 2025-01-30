@@ -122,69 +122,25 @@ public class UnigramWordPredictor implements WordPredictor {
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
     // Hint: only the last word in context should be looked at
-    //String prediction = "";
 
-    //if (prediction == "")
-    //{
-      /*int max = getNeighborMap().keySet().size()-1;
-      int min = 0;
+    // if number of words to generate is 1, "upon" will be generated
+    String randomWord = "";
+    //String startingWord = getNeighborMap().keySet();
+    context = getNeighborMap().get(0); // build off the fact that index0 is always gonna be first
 
-      Random r = new Random();
-      int randomNum = r.nextInt(max-min+1) + min;
-      
-      // now im trying to get a key with a INDEX number
+    int max = context.size()-1;
+    int min = 0;
+    Random r = new Random();
+    int randomNum = r.nextInt(max-min+1) + min;
 
-      //System.out.println("Key SET: " + getNeighborMap().keySet().toString()); 
-      List<String> test = new ArrayList<String>();
-      test.addAll(getNeighborMap().keySet());
-      //System.out.println("TEST LIST: " + test);
-      
-      //prediction = test.get(randomNum);
+    randomWord = context.get(randomNum);
+    context = getNeighborMap().get(randomWord);
 
-      // i need to make use of context list parameter
-      String randomWord = "";
-      randomWord = test.get(randomNum);
-      context = getNeighborMap().get(randomWord);
-      
-      System.out.println("word: " + randomWord);
-      System.out.println(" | context list: " + context);
-      System.out.println(" | size: " + context.size());*/
-      
-      // if case for FIRST word that starts entire story
-      String randomWord = "";
+    //System.out.println(" | word: " + randomWord);
+    //System.out.println(" | context list: " + context);
+    //System.out.println(" | size: " + context.size());
 
-      List<String> tempContext = new ArrayList<String>();
-      tempContext.addAll(getNeighborMap().keySet());
-
-      int max = tempContext.size()-1;
-      int min = 0;
-
-      Random r = new Random();
-      int randomNum = r.nextInt(max-min+1) + min;
-
-      randomWord = tempContext.get(randomNum);
-
-      // else case for if story already started
-
-      int newMax = context.size()-1;
-      int newMin = 0;
-
-      Random r = new Random();
-
-      int newRandomNum = r.nextInt(newMax-newMin+1) + newMin;
-
-      randomWord = context.get(newRandomNum);
-
-      System.out.println("word: " + randomWord);
-      System.out.println(" | context list: " + context);
-      System.out.println(" | size: " + context.size());
-
-    //}
-
-    //System.out.println("test:" + getNeighborMap());
-
-    //return randomWord;
-    return "";
+    return null; // "upon" is still generated with 1, even when null.
   }
   
   /**
