@@ -139,7 +139,15 @@ public class UnigramWordPredictor implements WordPredictor {
       test.addAll(getNeighborMap().keySet());
       //System.out.println("TEST LIST: " + test);
       
-      prediction = test.get(randomNum);
+      //prediction = test.get(randomNum);
+
+      // i need to make use of context list parameter
+      String word = "";
+      word = test.get(randomNum);
+      context = getNeighborMap().get(word);
+      
+      System.out.println("word: " + word);
+      System.out.println("context list: " + context);
     }
 
     //System.out.println("test:" + getNeighborMap());
