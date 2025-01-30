@@ -133,11 +133,16 @@ public class UnigramWordPredictor implements WordPredictor {
       int randomNum = r.nextInt(max-min+1) + min;
       
       // now im trying to get a key with a INDEX number
-      getNeighborMap().get(0);
 
+      //System.out.println("Key SET: " + getNeighborMap().keySet().toString()); 
+      List<String> test = new ArrayList<String>();
+      test.addAll(getNeighborMap().keySet());
+      //System.out.println("TEST LIST: " + test);
+      
+      prediction = test.get(randomNum);
     }
 
-    System.out.println("testtt:" + getNeighborMap());
+    //System.out.println("test:" + getNeighborMap());
 
     return prediction;
     //return null;
