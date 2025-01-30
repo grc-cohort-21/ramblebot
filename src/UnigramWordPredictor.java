@@ -115,7 +115,7 @@ public class UnigramWordPredictor implements WordPredictor {
     String lastWord = context.get(context.size() -1);
     List<String> nextWord = neighborMap.get(lastWord);
 
-      if (nextWord == null || nextWord.isEmpty()){
+      if (nextWord == null || nextWord.isEmpty()){ //if nextWord is null or empty return null
         return null;
       }
 

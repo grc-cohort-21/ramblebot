@@ -1,0 +1,17 @@
+attorney: what school did you present when a fight . attorney: what was your responses must be oral, ok? what school did you performed on dead people? witness: july 18th . attorney: doctor, how i dress when a fight . attorney: how old is your autopsies have you present when i just lie there . attorney: and what gear were you sexually active? witness: july 18th . attorney: and reeboks . attorney: what ways does it affect your iq . attorney: and what gear were you performed on dead people? witness: he's 20, much like your picture was it terminated?
+//not sure why there is a little space before the period :C
+
+//Output spread out for reading convenience:
+
+attorney: what school did you present when a fight . 
+attorney: what was your responses must be oral, ok? what school did you performed on dead people? 
+
+witness: july 18th . attorney: doctor, how i dress when a fight . 
+
+attorney: how old is your autopsies have you present when i just lie there . 
+attorney: and what gear were you sexually active? witness: july 18th . 
+attorney: and reeboks . 
+attorney: what ways does it affect your iq . 
+attorney: and what gear were you performed on dead people? 
+
+witness: he's 20, much like your picture was it terminated?
