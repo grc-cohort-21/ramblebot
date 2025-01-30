@@ -24,13 +24,28 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    * The tokenized output should be: ["hello", "world", ".", "this", "is", "dr.smith's", "example", "."]
    * 
    * The internal period in Dr.Smith's is not treated as its own token because it does not occur at the end of the word.
-   * 
-   * @param scanner the Scanner to read the input text from
-   * @return a list of tokens, where each token is a word or a period
    */
-  public List<String> tokenize(Scanner scanner) {
-    // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
-  }
-}
+    @Override
+    public List<String> tokenize(Scanner scanner) {
+        List<String> tokens = new ArrayList<>();
 
+        // Read each word from the scanner
+        while (scanner.hasNext()) {
+            String word = scanner.next().toLowerCase();
+
+
+            // Check if the word ends with a period
+            if (word.endsWith(".") && word.length() > 1) {
+
+                // Split the word and the period into separate tokens
+                tokens.add(word.substring(0, word.length() - 1)); 
+                tokens.add("."); 
+            } else {
+                
+                tokens.add(word);
+            }
+        }
+
+        return tokens;
+    }
+}
