@@ -12,7 +12,7 @@ import java.io.*;
  * words that directly follow it in the text.
  */
 public class UnigramWordPredictor implements WordPredictor {
-  private Map<String, List<String>> neighborMap = new HashMap<>();
+  private Map<String, List<String>> neighborMap;
   private Tokenizer tokenizer;
 
   /**
@@ -62,7 +62,7 @@ public class UnigramWordPredictor implements WordPredictor {
     // **does not return anything**
     //two for loops one to add key and then one to walk through list and find following words
     //nested 
-
+    neighborMap = new HashMap<>();
 
     //loop that adds all word from trainingWords as keys to map
     for(String key : trainingWords)
