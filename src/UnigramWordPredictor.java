@@ -124,44 +124,31 @@ public class UnigramWordPredictor implements WordPredictor {
     // Hint: only the last word in context should be looked at
 
     // if number of words to generate is 1, "upon" will be generated
-    String randomWord = "";
-
     String startingWord = "";
     List<String> temp = new ArrayList<String>();
     temp.addAll(getNeighborMap().keySet());
     startingWord = temp.get(0);
+    System.out.println("TEMP: " + temp);
     System.out.println("STARTING WORD: " + startingWord);
 
-    /*
-    String startingWord = "";
-    boolean isStartingWord = false;
-
-    for (String key : getNeighborMap().keySet())
-    {
-      if (isStartingWord == true)
-      {
-        break;
-      }
-      startingWord = key;
-      System.out.println("STARTING WORD: " + startingWord);
-      isStartingWord = true;
-    }*/
-
     context = getNeighborMap().get(startingWord); // build off the fact that index0 is always gonna be first
+    System.out.println("CURRENT CONTEXT: " + context);
 
     int max = context.size()-1;
     int min = 0;
     Random r = new Random();
     int randomNum = r.nextInt(max-min+1) + min;
 
+    String randomWord = "";
+
     randomWord = context.get(randomNum);
     context = getNeighborMap().get(randomWord);
 
-    System.out.println(" | word: " + randomWord);
-    System.out.println(" | context list: " + context);
-    System.out.println(" | size: " + context.size());
+    System.out.println(" | next word: " + randomWord);
+    System.out.println(" | next context: " + context);
+    System.out.println(" | size of context: " + context.size());
 
-    return "";
+    return randomWord;
     //return randomWord; // "upon" is still generated with 1, even when null.
   }
   
