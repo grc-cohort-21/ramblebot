@@ -41,7 +41,17 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
       String[] list = line.split("\\s+");
       // adds items in array to the list of tokens
       for(int i = 0; i < list.length; i++) {
-        tokens.add(list[i]);
+        String word = list[i];
+        //only way I know how to solve the last two test cases
+        char last = word.charAt(word.length()-1);
+        if(last != '.'){
+          tokens.add(word.toLowerCase());
+        }
+        else{
+          String newString = word.substring(0, word.length()-1);
+          tokens.add(newString);
+          tokens.add(".");
+        }
       }
     }
     return tokens;
