@@ -137,7 +137,15 @@ public class RambleApp {
                 System.out.println("If you have implemented it, there's a bug in your code where it's returning null for a prediction.");
                 break;
             }
-            System.out.print(" " + nextWord);
+            // Adjusted output to account for sentence ending punctuation.
+            if (nextWord.equals(".") || nextWord.equals("?") || nextWord.equals("!")) 
+            {
+               System.out.println(nextWord);
+            }
+            else
+            {
+               System.out.print(" " + nextWord);
+            }
 
             //Appending all additional words to the rambleOutput.txt file
             try 
