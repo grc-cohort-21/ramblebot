@@ -13,8 +13,9 @@ public interface WordPredictor {
    * Trains the predictor using the text provided by the Scanner.
    * 
    * @param scanner the Scanner to read the training text from
+   * @return 
    */
-  public void train(Scanner scanner);
+  public List<String> train(Scanner scanner);
   
   /**
    * Predicts the next word based on the given context.
