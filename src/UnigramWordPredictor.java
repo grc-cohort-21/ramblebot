@@ -9,7 +9,8 @@ import java.util.Scanner;
  * The model is trained on input text and maps each word to a list of 
  * words that directly follow it in the text.
  */
-public class UnigramWordPredictor implements WordPredictor {
+public class UnigramWordPredictor implements WordPredictor 
+{
   private Map<String, List<String>> neighborMap;
   private Tokenizer tokenizer;
 
@@ -18,7 +19,8 @@ public class UnigramWordPredictor implements WordPredictor {
    * 
    * @param tokenizer the tokenizer used to process the input text
    */
-  public UnigramWordPredictor(Tokenizer tokenizer) {
+  public UnigramWordPredictor(Tokenizer tokenizer) 
+  {
     this.tokenizer = tokenizer;
   }
 
@@ -48,10 +50,41 @@ public class UnigramWordPredictor implements WordPredictor {
    * 
    * @param scanner the Scanner to read the training text from
    */
-  public void train(Scanner scanner) {
+  public void train(Scanner scanner) 
+  {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
-    // TODO: Convert the trainingWords into neighborMap here
+    // Map
+    Map<String, List<String>> prepNeighborMap = new HashMap<String, List<String>>();
+    
+    // Go through each token in trainingWords
+    for (int i = 0; i < trainingWords.size() -1; i++)
+    {
+          // Test for null
+          if (trainingWords.get(i + 1) == null) 
+          {
+               break;
+          }
+          else if (!prepNeighborMap.containsKey(trainingWords.get(i))) // If the token from trainingWords doesn't exist as a key in prepNeighborMap, create one  
+          {
+               List<String> addList = new ArrayList<String>();
+               addList.add(trainingWords.get(i + 1)); // Add the next token from trainingWords to a new list
+               
+               prepNeighborMap.put(trainingWords.get(i), addList);
+          }
+          else // If the token from trainingWords exists as a key in prepNeighborMap, add new token to list
+          {
+              List<String> addList = prepNeighborMap.get(trainingWords.get(i)); // Create a new list from the existing list based on the key
+              addList.add(trainingWords.get(i + 1)); // Add new list item
+
+              prepNeighborMap.put(trainingWords.get(i), addList);
+          }
+
+    }
+
+    // Put the completed map into neighborMap
+    this.neighborMap = prepNeighborMap;
+
   }
 
   /**
@@ -98,10 +131,17 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param context a list of words representing the current context
    * @return the predicted next word, or null if no prediction can be made
    */
-  public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+  public String predictNextWord(List<String> context) 
+  {
+    // Generating list of next word options
+    List<String> contextList = neighborMap.get(context.getLast());
+
+    // Creating a random num generator based on the number of next word options
+    int randNum = (int)Math.floor(Math.random() * contextList.size());
+
+    // Returning decided next word
+     return contextList.get(randNum);
+
   }
   
   /**

@@ -16,9 +16,18 @@ class LowercaseSentenceTokenizerTest {
     }
 
     // Wave 2
-    /*
-     * Write your test here!
-     */
+    @Test
+    void testTokenizeSpaces()
+    {
+          //  Arrange
+          LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+          Scanner scanner = new Scanner("hello     hi hi hi    hello hello");
+          // Act
+          List<String> tokens = tokenizer.tokenize(scanner);
+          // Assert
+          assertEquals(List.of("hello", "hi", "hi", "hi", "hello", "hello"), tokens);
+
+    }
     
 
     // Wave 3
