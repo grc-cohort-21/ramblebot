@@ -57,49 +57,22 @@ public class UnigramWordPredictor implements WordPredictor {
     for (int i=0; i < trainingWords.size()-1; i++)
     {
       
-      List<String> wordFollowUpList = new ArrayList<String>(); // THIS IS WHY EMPTY FOR INDEX 0's
-      
-      //int currentWordIndex =i;
-      //int nextWordIndex = i+1;
-
-      //System.out.println("word: " + trainingWords.get(currentWordIndex) + "| index: " + currentWordIndex + "---");
-
-      //System.out.println("word: " + word + " | current i: " + currentWordIndex + " | next i: " + nextWordIndex + " | wFL: " + wordFollowUpList + " | tW.get(current): " + trainingWords.get(currentWordIndex) + " | tw.get(next): " + trainingWords.get(nextWordIndex));
+      List<String> wordFollowUpList = new ArrayList<String>();
+ 
       if (!neighborMap.containsKey(trainingWords.get(i)))
-      {          
-        System.out.println("IF:");                          
+      {                                  
         wordFollowUpList.add(trainingWords.get(i+1));
         neighborMap.put(trainingWords.get(i), wordFollowUpList);
       }
       else
       {
-        System.out.println("ELSE:");  
-        //System.out.println("wFL before: " + wordFollowUpList); // why is it empty and not "world"
-        //wordFollowUpList.add(trainingWords.get(i+1));
-        //System.out.println("wFL after: " + wordFollowUpList);
         List<String> currentWordsList = neighborMap.get(trainingWords.get(i));
         currentWordsList.add(trainingWords.get(i+1));
         neighborMap.put(trainingWords.get(i), currentWordsList);
       }
     }
-    System.out.println("NEIGHBORMAP: " + neighborMap);
-    System.out.println("tW:" + trainingWords);
+    System.out.println(neighborMap);
   }
-
-    /*
-     * Okay so next, I want to make a loop that sees everytime a word is found, it takes the following word. if it appears once in the trainingWords, 
-     * 
-     * for (everyWordInTrainingWordsList) 
-     *    // if map contains (the), then indexOfCurrent(the) + 1 and add it to map
-     * else if map doesnt contain (the), simply add (the) to map and its following index.
-     *   
-     */
-
-  /*
-   * Working tests:
-   * System.out.println("WORD: " + word); result: prints "WORD: upon" etc.
-   * wordFollowUpList.add(word);          result: adds "upon" in list
-   */
 
   /**
    * Predicts the next word based on the given context.
