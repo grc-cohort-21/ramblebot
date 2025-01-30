@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -113,6 +115,18 @@ public class RambleApp {
         List<String> context = new ArrayList<>();
         context.add(tokens.get(0));
         System.out.print(context.get(0)); // Print the first word
+        
+        //File initialization/writing the first word
+        try 
+        {
+          FileWriter outputFile = new FileWriter("rambleOutput.txt");
+          outputFile.write(context.get(0));
+          outputFile.close();
+        } 
+        catch (IOException e) 
+        {
+          e.getStackTrace();
+        }
 
         for (int i = 1; i < numWords; i++) {
             String nextWord = predictor.predictNextWord(context);
@@ -124,6 +138,29 @@ public class RambleApp {
                 break;
             }
             System.out.print(" " + nextWord);
+
+            //Appending all additional words to the rambleOutput.txt file
+            try 
+            {
+               // https://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it
+               // Used the FileWriter section of the post by Derek Hill to get how to write to a file without overwriting.
+               FileWriter outputFile = new FileWriter("rambleOutput.txt", true); // Append true to continue writing to a file
+
+               if (nextWord.equals(".") || nextWord.equals("?") || nextWord.equals("!")) 
+               {
+                    outputFile.write(nextWord);
+               }
+               else
+               {
+                    outputFile.write(" " + nextWord);
+               }
+               
+               outputFile.close();
+            } 
+            catch (IOException e) 
+            {
+               e.getStackTrace();
+            }
 
             // Update the context with the next word
             context.add(nextWord);
