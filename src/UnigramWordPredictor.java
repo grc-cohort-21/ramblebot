@@ -52,27 +52,38 @@ public class UnigramWordPredictor implements WordPredictor {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
     // TODO: Convert the trainingWords into neighborMap here
-    System.out.println("tW:" + trainingWords); // testing
-    System.out.println("nM:" + neighborMap);   // testing
+    neighborMap = new HashMap<String, List<String>>(); 
 
-    neighborMap = new HashMap<String, List<String>>();
-
-    for (String word : trainingWords)
+    for (int i=0; i < trainingWords.size()-1; i++)
     {
+      
+      List<String> wordFollowUpList = new ArrayList<String>(); // THIS IS WHY EMPTY FOR INDEX 0's
+      
+      //int currentWordIndex =i;
+      //int nextWordIndex = i+1;
 
-      List<String> wordFollowUpList = new ArrayList<String>();
-      
-      int currentWordIndex = trainingWords.indexOf(word);
-      int nextWordIndex = trainingWords.indexOf(word)+1;
-      wordFollowUpList.add(trainingWords.get(nextWordIndex));
-      
-      neighborMap.put(word, wordFollowUpList);
+      //System.out.println("word: " + trainingWords.get(currentWordIndex) + "| index: " + currentWordIndex + "---");
 
       //System.out.println("word: " + word + " | current i: " + currentWordIndex + " | next i: " + nextWordIndex + " | wFL: " + wordFollowUpList + " | tW.get(current): " + trainingWords.get(currentWordIndex) + " | tw.get(next): " + trainingWords.get(nextWordIndex));
-    
-      
+      if (!neighborMap.containsKey(trainingWords.get(i)))
+      {          
+        System.out.println("IF:");                          
+        wordFollowUpList.add(trainingWords.get(i+1));
+        neighborMap.put(trainingWords.get(i), wordFollowUpList);
+      }
+      else
+      {
+        System.out.println("ELSE:");  
+        //System.out.println("wFL before: " + wordFollowUpList); // why is it empty and not "world"
+        //wordFollowUpList.add(trainingWords.get(i+1));
+        //System.out.println("wFL after: " + wordFollowUpList);
+        List<String> currentWordsList = neighborMap.get(trainingWords.get(i));
+        currentWordsList.add(trainingWords.get(i+1));
+        neighborMap.put(trainingWords.get(i), currentWordsList);
+      }
     }
-    System.out.println("neighborMap: " + neighborMap);
+    System.out.println("NEIGHBORMAP: " + neighborMap);
+    System.out.println("tW:" + trainingWords);
   }
 
     /*

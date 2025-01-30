@@ -1,1 +1,1 @@
-Hello world. This is Dr.Smith's example.
+Hello world. This is Dr.Smith's hello example.
