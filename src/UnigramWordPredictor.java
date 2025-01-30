@@ -54,17 +54,14 @@ public class UnigramWordPredictor implements WordPredictor {
 
     // TODO: Convert the trainingWords into neighborMap here
 
+    //INITIAL THOUGHTS
     // add every word in the list to the map as a key
     // then go through list and find the words that follow each of the keys
     // and add those wrods to a list that will then be added as the values for the map
     // **does not return anything**
-    
     //two for loops one to add key and then one to walk through list and find following words
     //nested 
 
-
-
-    //list of words that follow the key word
 
     //loop that adds all word from trainingWords as keys to map
     for(String key : trainingWords)
@@ -80,7 +77,6 @@ public class UnigramWordPredictor implements WordPredictor {
           valueWords.add(followingWord);
         }
         trainingWordsTwo.remove(trainingWordsTwo.indexOf(key));
-
       }
       //add values to key
       neighborMap.put(key, valueWords);
