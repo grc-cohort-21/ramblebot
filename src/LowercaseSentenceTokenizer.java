@@ -1,3 +1,6 @@
+
+ 
+    import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,9 +31,40 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    * @param scanner the Scanner to read the input text from
    * @return a list of tokens, where each token is a word or a period
    */
-  public List<String> tokenize(Scanner scanner) {
-    // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
-  }
+    /* TODO: Implement this function to convert the scanner's input to a list of words and periods
+    return null; */
+
+ 
+@Override
+    public List<String> tokenize(Scanner scanner) {
+        List<String> tokens = new ArrayList<>();
+        
+        String input = scanner.nextLine().toLowerCase();
+
+        // Use "\\s+" to split by any number of spaces (removes empty tokens)
+        String[] words = input.split("\\s+"); 
+        
+        for (String word : words) {
+            if (word.endsWith(".")) {
+              // I ues the substring in this website https://www.w3schools.com/jsref/jsref_substring.asp
+              /* explain what this code do...
+              This code reads a sentence, converts it to lowercase, and splits it into words. It then checks
+if any word ends with a period (.). If there is a period at the end of a word, the period is
+separated and stored as its own token. Anything without a period gets directly added to the list. Finally,
+This function separates the words from the period as different tokens in a list.
+               */
+              String withoutPeriod = word.substring(0, word.length() - 1);
+                if (!withoutPeriod.isEmpty()) {
+                    tokens.add(withoutPeriod); // Add the word without the period
+                }
+                tokens.add("."); // Add the period as a separate token
+            } else {
+                tokens.add(word); 
+            }
+        }
+
+        return tokens;
+    }
 }
+
 

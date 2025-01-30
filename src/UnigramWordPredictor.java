@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -10,8 +11,9 @@ import java.util.Scanner;
  * words that directly follow it in the text.
  */
 public class UnigramWordPredictor implements WordPredictor {
-  private Map<String, List<String>> neighborMap;
+  private Map<String, List<String>> neighborMap; 
   private Tokenizer tokenizer;
+  private Random random; 
 
   /**
    * Constructs a UnigramWordPredictor with the specified tokenizer.
@@ -20,6 +22,8 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public UnigramWordPredictor(Tokenizer tokenizer) {
     this.tokenizer = tokenizer;
+    this.neighborMap = new HashMap<>(); 
+    this.random = new Random(); 
   }
 
   /**
@@ -29,29 +33,27 @@ public class UnigramWordPredictor implements WordPredictor {
    * in the text. The resultant map is stored in the neighborMap
    * instance variable.
    * 
-   * For example:
-   * If the input text is: "The cat sat. The cat slept. The dog barked."
-   * After tokenizing, the tokens would be: ["the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", "."]
-   * 
-   * The resulting map (neighborMap) would be:
-   * {
-   *   "the" -> ["cat", "cat", "dog"],
-   *   "cat" -> ["sat", "slept"],
-   *   "sat" -> ["."],
-   *   "." -> ["the", "the"],
-   *   "slept" -> ["."],
-   *   "dog" -> ["barked"],
-   *   "barked" -> ["."]
-   * }
-   * 
-   * The order of the map and the order of each list is not important.
-   * 
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
 
-    // TODO: Convert the trainingWords into neighborMap here
+    if (trainingWords.isEmpty()) {
+        return;
+    }
+
+    for (int i = 0; i < trainingWords.size() - 1; i++) {
+      String currentWord = trainingWords.get(i);
+      String nextWord = trainingWords.get(i + 1);
+
+      // this code mean ...if currentWord is not already in neighborMap, add it with an empty list as its value.
+
+
+      neighborMap.putIfAbsent(currentWord, new ArrayList<>());
+
+      // Store the word that follows
+      neighborMap.get(currentWord).add(nextWord);
+    }
   }
 
   /**
@@ -98,17 +100,36 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param context a list of words representing the current context
    * @return the predicted next word, or null if no prediction can be made
    */
+
+   /* explain the code what do ..The predictNextWord method takes a list of
+    words as context and predicts the next word. It first checks if the context is empty and
+     returns null if so. Then, it retrieves the last word from the list and looks it up in neighborMap, 
+     which stores words and their possible next words from training data. If the last word exists in the map 
+     and has a list of next words, it randomly selects one based on frequency. If no match is found, it returns
+      null.
+ */
+/* I ues this link to learn on this https://stackoverflow.com/questions/4672806/java-simplest-way-to-get-last-word-in-a-string */
   public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+    if (context.isEmpty()) {
+        return null;
+    }
+
+    String lastWord = context.get(context.size() - 1); // Get last word
+
+    if (neighborMap.containsKey(lastWord)) {
+        List<String> nextWords = neighborMap.get(lastWord);
+
+        if (!nextWords.isEmpty()) {
+            return nextWords.get(random.nextInt(nextWords.size())); 
+        }
+    }
+
+    return null; 
   }
-  
+
   /**
    * Returns a copy of the neighbor map. The neighbor map is a mapping 
    * from each word to a list of words that have followed it in the training data.
-   * 
-   * You do not need to modify this method for your project.
    * 
    * @return a copy of the neighbor map
    */
