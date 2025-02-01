@@ -2,6 +2,8 @@
 
 A project to exercise Java, JUnit, git, GitHub, and code-reading skills. Students will create a language model to generate text.
 
+@Author: SketchRudy
+
 ## Expectations
 
 ### Academic Honesty
@@ -86,7 +88,7 @@ Write your test in `LowercaseSentenceTokenizerTest` where indicated by the comme
 In wave 3, you will finish the implementation of `tokenize`. Read the Javadoc carefully to understand what to do. Successfully completing this wave should make the remaining tests in `LowercaseSentenceTokenizerTest` pass. Add, commit, and push your code!
 
 ## Wave 4
-In wave 4 you will finish the implementation of `train` in `UnigramWordPredictor`. There is already one line of the implementation provided for you, you do not need to change it. Write the rest of te implementation below it. Read the Javadoc on `train` carefully to understand what is expected. I also recommend reading `testTrainAndGetNeighborMap` in `UnigramWordPredictorTest` as it gives an example input/output. Successfully completing your code should make that test pass. This method is probably the hardest part of the project. Look back at compound data structures and ask for help from tutors or in office hours if needed. Make sure to add, commit, and push your code frequently!
+In wave 4 you will finish the implementation of `train` in `UnigramWordPredictor`. There is already one line of the implementation provided for you, you do not need to change it. Write the rest of the implementation below it. Read the Javadoc on `train` carefully to understand what is expected. I also recommend reading `testTrainAndGetNeighborMap` in `UnigramWordPredictorTest` as it gives an example input/output. Successfully completing your code should make that test pass. This method is probably the hardest part of the project. Look back at compound data structures and ask for help from tutors or in office hours if needed. Make sure to add, commit, and push your code frequently!
 
 ## Wave 5
 In wave 5 you will implement `predictNextWord` in `UnigramWordPredictor`. As part of implementing this, you will need to research how to generate random numbers in Java. Read the Javadoc carefully, and read the comments on the remaining tests. Once you complete this wave, all tests in the project should pass.

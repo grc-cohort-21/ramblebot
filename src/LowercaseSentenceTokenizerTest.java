@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,6 +21,19 @@ class LowercaseSentenceTokenizerTest {
     /*
      * Write your test here!
      */
+
+     @Test
+     void testTokenizerWithExtraSpaces() {
+        // Arrange
+        String input = "hello     hi hi hi    hello hello";
+        Scanner scanner = new Scanner(input);
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        // Act
+        List<String> tokens  = tokenizer.tokenize(scanner);
+        // Assert
+        assertEquals(List.of("hello","hi","hi","hi","hello","hello"), tokens);
+     }
+     
     
 
     // Wave 3
