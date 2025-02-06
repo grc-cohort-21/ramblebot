@@ -5,8 +5,6 @@ import java.util.Scanner;
  * A simple fake tokenizer that returns a predefined list of tokens.
  * This is useful for testing the UnigramWordPredictor in isolation.
  * 
- * To learn more about fakes in testing, read this (optional):
- * https://www.petrikainulainen.net/programming/testing/introduction-to-fakes
  */
 class FakeTokenizer implements Tokenizer {
     private final List<String> tokens;

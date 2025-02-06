@@ -6,7 +6,6 @@ import java.util.Scanner;
  * Implementations should train on text data and predict the next word based
  * on the given context.
  * 
- * You do not need to modify this interface for your project.
  */
 public interface WordPredictor {
   /**

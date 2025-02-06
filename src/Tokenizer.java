@@ -4,8 +4,6 @@ import java.util.Scanner;
 /**
  * An interface representing a tokenizer for processing text input.
  * The implementation should convert the input text into a list of tokens.
- * 
- * You do not need to modify this interface for your project.
  */
 public interface Tokenizer {
   /**
