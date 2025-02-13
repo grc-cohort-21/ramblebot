@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * A class for predicting the next word in a sequence using a unigram model.
@@ -20,6 +21,7 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public UnigramWordPredictor(Tokenizer tokenizer) {
     this.tokenizer = tokenizer;
+    this.neighborMap = new HashMap<>(); // INIT NEIGHBORMAP!!
   }
 
   /**
@@ -49,7 +51,18 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
-    List<String> trainingWords = tokenizer.tokenize(scanner);
+    List<String> trainingWords = tokenizer.tokenize(scanner); // List of tokenized string values. 
+    
+    for(int i = 0; i < trainingWords.size() - 1; i++) // Loop through the tokenized list. 
+    {
+      String currentWord = trainingWords.get(i); // get the first index of the list.
+      String nextWord = trainingWords.get(i + 1); // get the one after the first or where ever i equals.
+
+      List<String> listOfStrings = neighborMap.getOrDefault(currentWord, new ArrayList<>()); // Get or default checks if (currentWord) is in the map as a key, and if its not it adds it and returns a list,
+      listOfStrings.add(nextWord); // here we add to the list and if (nextWord) isnt the same as (currentWord) it adds it within that list as a value to the key.
+      neighborMap.put(currentWord, listOfStrings); // populate hashmap and add values.
+
+    }
 
     // TODO: Convert the trainingWords into neighborMap here
   }
@@ -100,8 +113,12 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public String predictNextWord(List<String> context) {
     // TODO: Return a predicted word given the words preceding it
+    Random random = new Random(); //init new random
+    String word = context.get(context.size() - 1);// Obtain the size of selected key containing the list.
+    List<String> neighbor = neighborMap.getOrDefault(word, context);// get the values of the key and store in a list // if one or (null) then default to that value. 
+    int randomInt = random.nextInt(neighbor.size()); //get the size of the values of the key. 
     // Hint: only the last word in context should be looked at
-    return null;
+    return neighbor.get(randomInt); //Return the list with a random index 
   }
   
   /**

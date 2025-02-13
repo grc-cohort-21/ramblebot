@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +31,24 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
+    
+    String input = scanner.nextLine();
+
+    String Lowered = input.toLowerCase();
+    // \\w captures a word string,
+    // \\. captures a period,
+    // I utilized negative lookbehind and negative lookahead regex expressions, 
+    String moveCharacters = Lowered.replaceAll("(?<!\\w)\\.(?!\\w)", " . ") //this replacement checks for a word infront and behind the period if found, and singles out the period
+    .replaceAll("(\\w)\\.(\\w)", "$1.$2") //this replacement checks for a period surrounded by words, the \\w checks what is arround and inits its findings to the first and second capturing group
+    .replaceAll("\\.(?!\\w)", " . ")//this replacement checks for a period followed by no word string
+    .replace(",", " , ")
+    .replace("'", "'");
+
+    String[] convertToArray = moveCharacters.split("\\s+"); //Found this for help https://stackoverflow.com/questions/7899525/how-to-split-a-string-by-space \s finds white space tabs, spaces, newlines + finds multiple.
+    
+    return Arrays.asList(convertToArray);
+
+
   }
 }
 
