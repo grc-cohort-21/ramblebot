@@ -82,7 +82,7 @@ class UnigramWordPredictorTest {
         );
         UnigramWordPredictor predictor = new UnigramWordPredictor(fakeTokenizer);
         
-        predictor.train(null); // The scanner input is ignored by FakeTokenizer
+        predictor.train(null); 
         
         // Predicting the next word after "the" should be "quick" or "slow"
         String nextWord = predictor.predictNextWord(List.of("the"));
