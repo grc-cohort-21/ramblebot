@@ -15,10 +15,16 @@ class LowercaseSentenceTokenizerTest {
         assertEquals(List.of("this", "is", "a", "lowercase", "sentence", "without", "a", "period"), tokens);
     }
 
+
     // Wave 2
-    /*
-     * Write your test here!
-     */
+    @Test
+    void testTokenizeWithManySpaces() {
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        Scanner scanner = new Scanner(" this  is a   sentence with       lots of extra      spaces");
+        List<String> tokens = tokenizer.tokenize(scanner);
+
+        assertEquals(List.of("this", "is", "a", "sentence", "with", "lots", "of", "extra", "spaces"), tokens);
+    }
     
 
     // Wave 3
@@ -49,6 +55,33 @@ class LowercaseSentenceTokenizerTest {
         List<String> tokens = tokenizer.tokenize(scanner);
 
         assertEquals(List.of("hello", "world", ".", "this", "is", "dr.smith's", "example", "."), tokens);
+    }
+
+    @Test
+    void testTokenizeEndsWithElipsisi() {
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        Scanner scanner = new Scanner("Hello world... This is Dr.Smith's example...");
+        List<String> tokens = tokenizer.tokenize(scanner);
+
+        assertEquals(List.of("hello", "world", "...", "this", "is", "dr.smith's", "example", "..."), tokens);
+    }
+
+    @Test
+    void testTokenizeSentenceInQuotes() {
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        Scanner scanner = new Scanner("\"Hello world. This is Dr.Smith's example.\"");
+        List<String> tokens = tokenizer.tokenize(scanner);
+
+        assertEquals(List.of("\"", "hello","world", ".", "this", "is", "dr.smith's", "example", ".","\""), tokens);
+    }
+
+    @Test
+    void testTokenizeOnlyPunctuationMarks() {
+        LowercaseSentenceTokenizer tokenizer = new LowercaseSentenceTokenizer();
+        Scanner scanner = new Scanner("\"!.!,?:;!?.!\"");
+        List<String> tokens = tokenizer.tokenize(scanner);
+
+        assertEquals(List.of("\"", "!",".", "!", ",", "?", ":", ";", "!","?",".","!","\""), tokens);
     }
     
 }
