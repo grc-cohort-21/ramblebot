@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -29,29 +30,35 @@ public class UnigramWordPredictor implements WordPredictor {
    * in the text. The resultant map is stored in the neighborMap
    * instance variable.
    * 
-   * For example:
-   * If the input text is: "The cat sat. The cat slept. The dog barked."
-   * After tokenizing, the tokens would be: ["the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", "."]
-   * 
-   * The resulting map (neighborMap) would be:
-   * {
-   *   "the" -> ["cat", "cat", "dog"],
-   *   "cat" -> ["sat", "slept"],
-   *   "sat" -> ["."],
-   *   "." -> ["the", "the"],
-   *   "slept" -> ["."],
-   *   "dog" -> ["barked"],
-   *   "barked" -> ["."]
-   * }
-   * 
-   * The order of the map and the order of each list is not important.
-   * 
    * @param scanner the Scanner to read the training text from
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
+    this.neighborMap = new HashMap<>();
+    
+    // Itterate over the list except for the last element because nothing comes after it. 
+    // If the neighborMap.containsKey(trainingWords(i)) - Where i is the current index (or word) of the trainingWords itteration 
+    //      - get the corresponding list and add trainingWords(i+1) becasue you are adding the word that follows
+    // Else create a new arrayList, list.add(i+1) - for the word following i - then neighborMap.put(i, newlist) 
+    //      - the current word as the key, the new list as the value
+    for (int i = 0; i < trainingWords.size() - 1; i++) {
+      if (neighborMap.containsKey(trainingWords.get(i))) {
+        neighborMap.get(trainingWords.get(i)).add(trainingWords.get(i+1));
+      }
+      else {
+        List<String> newList = new ArrayList<>();
+        newList.add(trainingWords.get(i+1));
+        neighborMap.put(trainingWords.get(i), newList);
+      }
+    }
 
-    // TODO: Convert the trainingWords into neighborMap here
+    // Account for the last word not being anywhere else in the training, to not crash the program
+    // Loop the training words so that the first word follows the last
+    if (!neighborMap.containsKey(trainingWords.get(trainingWords.size() - 1))) {
+      List<String> newList = new ArrayList<>();
+      newList.add(trainingWords.get(0));
+      neighborMap.put(trainingWords.get(trainingWords.size() - 1), newList);
+    }
   }
 
   /**
@@ -59,56 +66,24 @@ public class UnigramWordPredictor implements WordPredictor {
    * The prediction is made by randomly selecting from all words 
    * that follow the last word in the context in the training data.
    * 
-   * For example:
-   * If the input text is: "The cat sat. The cat slept. The dog barked."
-   * 
-   * The resulting map (neighborMap) would be:
-   * {
-   *   "the" -> ["cat", "cat", "dog"],
-   *   "cat" -> ["sat", "slept"],
-   *   "sat" -> ["."],
-   *   "." -> ["the", "the"],
-   *   "slept" -> ["."],
-   *   "dog" -> ["barked"],
-   *   "barked" -> ["."]
-   * }
-   * 
-   * When predicting the next word given a context, the predictor should use 
-   * the neighbor map to select a word based on the observed frequencies in 
-   * the training data. For example:
-   * 
-   * - If the last word in the context is "the", the next word should be randomly chosen 
-   *   from ["cat", "cat", "dog"]. In this case, "cat" has a 2/3 probability 
-   *   of being selected, and "dog" has a 1/3 probability, reflecting the 
-   *   original distribution of words following "the" in the text.
-   * 
-   * - If the last word in the context is "cat", the next word should be randomly chosen 
-   *   from ["sat", "slept"], giving each an equal 1/2 probability.
-   * 
-   * - If the last word in the context is ".", the next word should be randomly chosen 
-   *   from ["the", "the"], meaning "the" will always be selected 
-   *   since it's the only option.
-   * 
-   * - If the last word in the context is "dog", the next word should be "barked" because 
-   *   "barked" is the only word that follows "dog" in the training data.
-   * 
-   * The probabilities of selecting each word should match the relative 
-   * frequencies of the words that follow in the original training data. 
-   * 
    * @param context a list of words representing the current context
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+    // Examine last word in context
+    // Get possible word list from neighbor map
+    // Generate a random number between 0 and the size of the posible word list
+    // return a word from possible word list at random number index
+    String currentWord = context.get(context.size() - 1);
+    List<String> possibleNextWords = new ArrayList<>(neighborMap.get(currentWord));
+    Random random = new Random();
+
+    return possibleNextWords.get(random.nextInt(possibleNextWords.size()));
   }
   
   /**
    * Returns a copy of the neighbor map. The neighbor map is a mapping 
    * from each word to a list of words that have followed it in the training data.
-   * 
-   * You do not need to modify this method for your project.
    * 
    * @return a copy of the neighbor map
    */
