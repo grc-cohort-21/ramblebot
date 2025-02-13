@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -50,6 +51,26 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
+    
+    List<String> knownWords = new ArrayList<>();
+
+    for(String currentWord: trainingWords){
+      if(!knownWords.contains(currentWord)){
+        knownWords.add(currentWord);
+      }
+    }
+
+    neighborMap = new HashMap<>();
+
+    for (String item: knownWords) {
+      neighborMap.putIfAbsent(item, new ArrayList<>());
+    }
+
+    for (int i = 0; i < trainingWords.size()-1; i++){
+      if(neighborMap.containsKey(trainingWords.get(i))){
+        neighborMap.get(trainingWords.get(i)).add(trainingWords.get(i+1));
+      }
+    }
 
     // TODO: Convert the trainingWords into neighborMap here
   }
@@ -99,9 +120,16 @@ public class UnigramWordPredictor implements WordPredictor {
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+    Random random = new Random();
+    String lastWord = context.get(context.size() - 1); 
+    List<String> neighbors = neighborMap.get(lastWord); 
+
+    int lowerLimit = 0;
+    int upperLimit = neighbors.size() - 1;
+
+    int randomNumber = random.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
+
+    return neighbors.get(randomNumber);
   }
   
   /**
