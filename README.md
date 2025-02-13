@@ -37,6 +37,7 @@ This is a large, difficult project. Start early, and get help when you need it.
     code .
     ```
     If the above command does not work, you can open VS Code manually and select the ramblebot folder to open.
+Make sure you modify the read me and push the change on your own fork!
 1. Open `RambleApp.java`. Click anywhere in the text of the file
 1. Scroll to the bottom to find the `main` method. There should be a small grey "run" button above it. Click "Run".
 ![Run Button in VS Code](images/run_button.png)

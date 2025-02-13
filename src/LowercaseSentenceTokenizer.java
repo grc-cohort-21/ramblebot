@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +31,30 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
+    List<String> tokens = new ArrayList<>();
+    // reads whole scanner
+    while(scanner.hasNextLine()) {
+      // stores the line
+      String line = scanner.nextLine();
+      // makes an array from the line using spaces gets rid of extra spaces with +
+      // source for \\s vs \\s+ : https://stackoverflow.com/a/15625711
+      String[] list = line.split("\\s+");
+      // adds items in array to the list of tokens
+      for(int i = 0; i < list.length; i++) {
+        String word = list[i];
+        //only way I know how to solve the last two test cases
+        char last = word.charAt(word.length()-1);
+        if(last != '.'){
+          tokens.add(word.toLowerCase());
+        }
+        else{
+          String newString = word.substring(0, word.length()-1);
+          tokens.add(newString);
+          tokens.add(".");
+        }
+      }
+    }
+    return tokens;
   }
 }
 
