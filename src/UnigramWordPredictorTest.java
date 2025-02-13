@@ -5,8 +5,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnigramWordPredictorTest {
-
-    // Wave 4
+// Wave 4
     /**
      * Tests the train method by checking that the generated neighbor map matches the expected map.
      * 
@@ -26,21 +25,21 @@ class UnigramWordPredictorTest {
      */
     @Test
     void testTrainAndGetNeighborMap() {
-        // Use a fake tokenizer with predefined tokens
+        // Simulated training text with tokenized words
         FakeTokenizer fakeTokenizer = new FakeTokenizer(
             List.of("the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", ".")
         );
+
         UnigramWordPredictor predictor = new UnigramWordPredictor(fakeTokenizer);
-        
-        predictor.train(null); // The scanner input is ignored by FakeTokenizer
+        predictor.train(null); // Scanner input is ignored by FakeTokenizer
+
         Map<String, List<String>> neighborMap = predictor.getNeighborMap();
 
-        // Sort the actual lists to ensure order does not affect comparison
         for (List<String> values : neighborMap.values()) {
-            values.sort(null); // Sort alphabetically
+            values.sort(null);
         }
-
         // Pre-sorted expected map
+
         Map<String, List<String>> expectedMap = Map.of(
             "the", List.of("cat", "cat", "dog"),
             "cat", List.of("sat", "slept"),
@@ -74,45 +73,26 @@ class UnigramWordPredictorTest {
      * 
      * The test verifies that the predictions for various words are consistent with these patterns.
      */
+
     @Test
     void testPredictNextWord() {
-        // Use a fake tokenizer with a new set of predefined tokens
+                // Use a fake tokenizer with a new set of predefined tokens
+
         FakeTokenizer fakeTokenizer = new FakeTokenizer(
             List.of("the", "quick", "brown", "fox", ".", "a", "quick", "red", "fox", ".", "the", "slow", "green", "turtle", ".")
         );
-        UnigramWordPredictor predictor = new UnigramWordPredictor(fakeTokenizer);
-        
-        predictor.train(null); // The scanner input is ignored by FakeTokenizer
-        
-        // Predicting the next word after "the" should be "quick" or "slow"
-        String nextWord = predictor.predictNextWord(List.of("the"));
-        assertTrue(nextWord.equals("quick") || nextWord.equals("slow"));
-        
-        // Predicting the next word after "a" should be "quick"
-        nextWord = predictor.predictNextWord(List.of("a"));
-        assertEquals("quick", nextWord);
-        
-        // Predicting the next word after "quick" should be either "brown" or "red"
-        nextWord = predictor.predictNextWord(List.of("quick"));
-        assertTrue(nextWord.equals("brown") || nextWord.equals("red"));
-        
-        // Predicting the next word after "fox" should always be "."
-        nextWord = predictor.predictNextWord(List.of("fox"));
-        assertEquals(".", nextWord);
-        
-        // Predicting the next word after "slow" should always be "green"
-        nextWord = predictor.predictNextWord(List.of("slow"));
-        assertEquals("green", nextWord);
-        
-        // Predicting the next word after "turtle" should always be "."
-        nextWord = predictor.predictNextWord(List.of("turtle"));
-        assertEquals(".", nextWord);
-        
-        // Predicting the next word after "." should be "the" or "a"
-        nextWord = predictor.predictNextWord(List.of("."));
-        assertTrue(nextWord.equals("the") || nextWord.equals("a"));
-    }
 
+        UnigramWordPredictor predictor = new UnigramWordPredictor(fakeTokenizer);
+        predictor.train(null);
+
+        assertTrue(List.of("quick", "slow").contains(predictor.predictNextWord(List.of("the"))));
+        assertEquals("quick", predictor.predictNextWord(List.of("a")));
+        assertTrue(List.of("brown", "red").contains(predictor.predictNextWord(List.of("quick"))));
+        assertEquals(".", predictor.predictNextWord(List.of("fox")));
+        assertEquals("green", predictor.predictNextWord(List.of("slow")));
+        assertEquals(".", predictor.predictNextWord(List.of("turtle")));
+        assertTrue(List.of("the", "a").contains(predictor.predictNextWord(List.of("."))));
+    }
 
     // Wave 5
     /**
@@ -132,50 +112,43 @@ class UnigramWordPredictorTest {
      * The test runs multiple trials to estimate these probabilities and compares them to the
      * expected values with some tolerance for variation.
      */
+
     @Test
     void testPredictNextWordProbabilistically() {
-        // Use a fake tokenizer with predefined tokens
         FakeTokenizer fakeTokenizer = new FakeTokenizer(
             List.of("the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", ".")
         );
+
         UnigramWordPredictor predictor = new UnigramWordPredictor(fakeTokenizer);
-        
-        predictor.train(null); // The scanner input is ignored by FakeTokenizer
+        predictor.train(null);
 
-        // Perform multiple trials to check word frequencies
-        int trials = 10000; // Number of trials for statistical testing
-        double tolerance = 0.05; // Tolerance for frequency comparison
+        // Number of trials for probability check
+        int trials = 10000;
+        double tolerance = 0.05; 
 
-        // Expected probabilities
-        Map<String, Map<String, Double>> expectedProbabilities = new HashMap<>();
-        expectedProbabilities.put("the", Map.of("cat", 2.0 / 3.0, "dog", 1.0 / 3.0));
-        expectedProbabilities.put("cat", Map.of("sat", 0.5, "slept", 0.5));
-        expectedProbabilities.put("dog", Map.of("barked", 1.0));
-        expectedProbabilities.put(".", Map.of("the", 1.0));
+        Map<String, Map<String, Double>> expectedProbabilities = Map.of(
+            "the", Map.of("cat", 2.0 / 3.0, "dog", 1.0 / 3.0),
+            "cat", Map.of("sat", 0.5, "slept", 0.5),
+            "dog", Map.of("barked", 1.0),
+            ".", Map.of("the", 1.0)
+        );
 
-        // Run trials for each test case
         for (String word : expectedProbabilities.keySet()) {
             Map<String, Integer> counts = new HashMap<>();
             Map<String, Double> expected = expectedProbabilities.get(word);
 
-            // Initialize counts for expected words
-            for (String nextWord : expected.keySet()) {
-                counts.put(nextWord, 0);
-            }
+            expected.keySet().forEach(nextWord -> counts.put(nextWord, 0));
 
-            // Perform trials
             for (int i = 0; i < trials; i++) {
                 String predictedWord = predictor.predictNextWord(List.of(word));
                 counts.put(predictedWord, counts.getOrDefault(predictedWord, 0) + 1);
             }
 
-            // Check frequencies
             for (String nextWord : expected.keySet()) {
                 double observedFrequency = counts.get(nextWord) / (double) trials;
                 double expectedFrequency = expected.get(nextWord);
                 assertTrue(Math.abs(observedFrequency - expectedFrequency) < tolerance,
-                        "Observed frequency of '" + nextWord + "' after '" + word +
-                        "' was " + observedFrequency + ", expected " + expectedFrequency);
+                        "Frequency mismatch for '" + word + "': observed " + observedFrequency + ", expected " + expectedFrequency);
             }
         }
     }
