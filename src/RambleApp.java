@@ -163,5 +163,6 @@ public class RambleApp {
 
         RambleApp app = new RambleApp(tokenizer, predictor, inputScanner);
         app.run();
+       
     }
 }

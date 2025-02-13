@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +31,26 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
    */
   public List<String> tokenize(Scanner scanner) {
     // TODO: Implement this function to convert the scanner's input to a list of words and periods
-    return null;
+    ArrayList<String> tokens = new ArrayList<>();
+    while (scanner.hasNext()) {
+      String token = scanner.next().toLowerCase();
+      //I was struggling to remember what symbol means any character. I started to realize ".contains()" wasn't the right choice.
+      //I started searching the matches method on w3Schools and came across the lastIndexOf() Method
+      //https://www.w3schools.com/java/ref_string_lastindexof.asp
+      
+      if(token.lastIndexOf(".") == token.length()-1){
+        String shortStr = "";
+        char[] cArr = token.toCharArray();
+        for(int i=0; i<token.length()-1; i++){
+          shortStr += cArr[i];
+        }
+        tokens.add(shortStr);
+        tokens.add(".");
+        
+      }else{tokens.add(token);}
+      
+    }
+    return tokens;
   }
 }
 
