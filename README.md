@@ -7,10 +7,10 @@ A project to exercise Java, JUnit, git, GitHub, and code-reading skills. Student
 ### Academic Honesty
 
 THIS IS AN INDIVIDUAL PROJECT. The following is not allowed:
-- You MAY NOT copy any code from an AI.
-- You MAY NOT paste any of the project or your code into an AI.
-- You MAY NOT copy another student's code.
-- You MAY NOT copy substantial portions of your solution from the internet.
+- You MAY NOT copy any code from an AI!!!!!!!
+- You MAY NOT paste any of the project or your code into an AI!!!!!!
+- You MAY NOT copy another student's code!!!!!!!
+- You MAY NOT copy substantial portions of your solution from the internet!!!!!!!!
 
 You may:
 - You are allowed to talk about the project generally with other students.
