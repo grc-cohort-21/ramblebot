@@ -55,11 +55,14 @@ public class UnigramWordPredictor implements WordPredictor {
     
     // TODO: Convert the trainingWords into neighborMap here
     neighborMap = new HashMap<>();
+
+
     for(int i=0; i < trainingWords.size()-1; i++){
       //create a variable to store map keys and next word.
       String mKey = trainingWords.get(i);
       String nextWord = trainingWords.get(i+1);
       List<String> tempVals = new LinkedList<>();
+      
       //update temp with previous values.
       if(neighborMap.containsKey(mKey)){
         neighborMap.get(mKey).add(nextWord);
