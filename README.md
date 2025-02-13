@@ -6,7 +6,7 @@ A project to exercise Java, JUnit, git, GitHub, and code-reading skills. Student
 
 ### Academic Honesty
 
-THIS IS AN INDIVIDUAL PROJECT. The following is not allowed:
+THIS IS AN INDIVIDUAL PROJECT. The following is not allowed: 
 - You MAY NOT copy any code from an AI.
 - You MAY NOT paste any of the project or your code into an AI.
 - You MAY NOT copy another student's code.
@@ -20,7 +20,7 @@ You may:
 
 ### Commits
 
-YOU ARE EXPECTED TO MAKE SMALL, FREQUENT COMMITS. Doing so is good practice and helps me see that it's less likely you pasted in a large part of your solution from elsewhere.
+YOU ARE EXPECTED TO MAKE SMALL, FREQUENT COMMITS. Doing so is good practice and helps me see that it's less likely you pasted in a large part of your solution from elsewhere. (Changing Read me for the first commit)
 
 ### Timeline
 This is a large, difficult project. Start early, and get help when you need it.

@@ -1,7 +1,15 @@
+/**
+ * @author Shawn Nguru 
+ * SDEV 301 RambleBot
+ * 1-21-25 
+ * 
+ */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -33,6 +41,11 @@ public class UnigramWordPredictor implements WordPredictor {
    * If the input text is: "The cat sat. The cat slept. The dog barked."
    * After tokenizing, the tokens would be: ["the", "cat", "sat", ".", "the", "cat", "slept", ".", "the", "dog", "barked", "."]
    * 
+   * key: "the"  value: ["cat","cat","dog"]
+   * key: "cat"  value: ["sat", "slept"]
+   * 
+   * 
+   * 
    * The resulting map (neighborMap) would be:
    * {
    *   "the" -> ["cat", "cat", "dog"],
@@ -50,11 +63,49 @@ public class UnigramWordPredictor implements WordPredictor {
    */
   public void train(Scanner scanner) {
     List<String> trainingWords = tokenizer.tokenize(scanner);
+    List<String> valueWords = new ArrayList<>();
+    neighborMap = new HashMap<>();
 
-    // TODO: Convert the trainingWords into neighborMap here
+    String keyText = "";
+    for(int i = 0; i < trainingWords.size(); i++)
+    {
+      keyText = trainingWords.get(i);
+      for(int  j= 0; j < trainingWords.size()-1; j++)
+      {
+        if(keyText.equals(trainingWords.get(j)))
+        {
+          valueWords.add(trainingWords.get(j+1));
+        }
+      }
+      neighborMap.put(trainingWords.get(i), valueWords);
+      valueWords = new ArrayList<String>();
+    }
   }
 
   /**
+   *
+   * 
+  the quick fox the slow dog the slow cat
+predictor.train()
+  | 
+  v
+this.neighborMap = {
+    "the": ["quick", "slow", "slow"],
+    "quick": ["fox"]
+    "slow": ["dog", "cat"]
+}
+
+---------------
+
+predictor.predictNextWord(["I", "saw", "the"])
+followingWords = neighborMap.get("the") -> ["quick", "slow", "slow"]
+
+rng(3) -> # from [0-2] 
+randomNumber = rng(3)
+followingWords.get(randomNumber) -> ?
+     * 
+     *    * 
+   * 
    * Predicts the next word based on the given context.
    * The prediction is made by randomly selecting from all words 
    * that follow the last word in the context in the training data.
@@ -72,6 +123,8 @@ public class UnigramWordPredictor implements WordPredictor {
    *   "dog" -> ["barked"],
    *   "barked" -> ["."]
    * }
+   * 
+   * 
    * 
    * When predicting the next word given a context, the predictor should use 
    * the neighbor map to select a word based on the observed frequencies in 
@@ -98,10 +151,36 @@ public class UnigramWordPredictor implements WordPredictor {
    * @param context a list of words representing the current context
    * @return the predicted next word, or null if no prediction can be made
    */
-  public String predictNextWord(List<String> context) {
+  public String predictNextWord(List<String> context) 
+  {
     // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+    /**
+     * 
+     */
+
+    String probableWord = "";
+
+    String text = context.get(context.size()-1);    //getting the last piece of text in the context
+    
+    List<String> probaleList = new ArrayList<>();    //having the value of the list equal another arraylist
+    
+    for (String key : neighborMap.keySet())     //looping through the map to get the most likely list 
+    {
+      if(text == key)
+      {
+        probaleList = neighborMap.get(key);
+      }
+    }
+
+    Random wordProb = new Random();    //instantiating a random number generator 
+    int max = probaleList.size()-1;
+
+    for (int i = 0; i < probaleList.size(); i++)     //having the returned probable word return the most likely word from the random number
+    {
+      probableWord = probaleList.get(wordProb.nextInt(max - 0 + 1));
+    }
+    
+  return probableWord;
   }
   
   /**
