@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * A class for predicting the next word in a sequence using a unigram model.
@@ -48,10 +49,22 @@ public class UnigramWordPredictor implements WordPredictor {
    * 
    * @param scanner the Scanner to read the training text from
    */
-  public void train(Scanner scanner) {
-    List<String> trainingWords = tokenizer.tokenize(scanner);
+  public void train(Scanner text) {
+    List<String> trainingWords = tokenizer.tokenize(text);
 
-    // TODO: Convert the trainingWords into neighborMap here
+    this.neighborMap = new HashMap<String, List<String>>();
+    for(int i = 0; i< trainingWords.size() - 1; i++){
+      String key = trainingWords.get(i);
+      if(!this.neighborMap.containsKey(key)){
+        List<String> mapped = new ArrayList<>();
+        for(int j = 0; j < trainingWords.size() - 1; j++){
+          if(trainingWords.get(j).equals(key) && j != trainingWords.size() - 1){
+            mapped.add(trainingWords.get(j+1));
+          }
+        }
+        this.neighborMap.put(key, mapped);
+      }
+    }
   }
 
   /**
@@ -99,9 +112,15 @@ public class UnigramWordPredictor implements WordPredictor {
    * @return the predicted next word, or null if no prediction can be made
    */
   public String predictNextWord(List<String> context) {
-    // TODO: Return a predicted word given the words preceding it
-    // Hint: only the last word in context should be looked at
-    return null;
+    // making these seperate so that the return is not even more of an eyesore
+    Random num = new Random();
+    String word = context.get(context.size() - 1);
+    
+    // This lad is chunky
+    // First, we get the size of the list belonging to a key.
+    // with this, generate a number using the size of the list
+    // then we pick a random word in the list using the randomly generated number
+    return (this.neighborMap.get(word).get(num.nextInt(this.getNeighborMap().get(word).size())));
   }
   
   /**
